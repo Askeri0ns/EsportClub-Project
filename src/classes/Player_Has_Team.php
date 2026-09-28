@@ -2,8 +2,8 @@
 
 class Player_Has_Team {
     // Attributs
-    private int $player_id;
-    private int $team_id;
+    private Player $player;
+    private Team $team;
     private string $role;
 
     // Constructeur

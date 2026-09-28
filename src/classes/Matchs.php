@@ -6,17 +6,17 @@ class Matchs {
     private int $team_score;
     private int $opponent_score;
     private DateTime $date;
-    private int $team_id;
+    private Team $team;
     private string $city;
-    private int $opposing_club_id;
+    private Opposing_Club $opposing_club;
 
     // Constructeur
-    public function __construct(int $team_score, int $opponent_score, DateTime $date, int $team_id, string $city,int $opposing_club_id) {
+    public function __construct(int $team_score, int $opponent_score, DateTime $date, Team $team, string $city,Opposing_Club $opposing_club) {
         $this->team_score = $team_score;
         $this->opponent_score = $opponent_score;
         $this->date = $date;
-        $this->team_id = $team_id;
+        $this->team = $team;
         $this->city = $city;
-        $this->opposing_club_id = $opposing_club_id;
+        $this->opposing_club = $opposing_club;
     }
 }
