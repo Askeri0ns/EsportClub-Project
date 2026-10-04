@@ -15,4 +15,22 @@ class Player {
         $this->birthdate = $birthdate;
         $this->picture = $picture;
     }
+
+    // Id
+    public function getID(): int{
+        return $this->$id;
+    }
+
+    public function setID(int $id): void{
+        return $this->id = $id;
+    }
+
+    // firsname
+    public function getDate(): DateTime {
+        return $this->firstname;
+    }
+
+    public function setDate(string $firstname): void {
+        return $this->firstname = $firstname;
+    }
 }
