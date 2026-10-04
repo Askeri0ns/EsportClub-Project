@@ -25,12 +25,21 @@ class Player {
         return $this->id = $id;
     }
 
-    // firsname
+    // Firsname
     public function getDate(): DateTime {
         return $this->firstname;
     }
 
     public function setDate(string $firstname): void {
         return $this->firstname = $firstname;
+    }
+
+    // Lastname
+    public function getLastname(): DateTime {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): void {
+        return $this->lastname = $lastname;
     }
 }
