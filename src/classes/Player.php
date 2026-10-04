@@ -16,6 +16,7 @@ class Player {
         $this->picture = $picture;
     }
 
+    // Getter et Setter
     // Id
     public function getID(): int{
         return $this->$id;
@@ -53,7 +54,7 @@ class Player {
     }
 
     // Picture
-    public function getPicture(): ?string {
+    public function getPicture(): string {
         return $this->picture;
     }
 

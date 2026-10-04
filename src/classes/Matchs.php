@@ -19,4 +19,14 @@ class Matchs {
         $this->city = $city;
         $this->opposing_club = $opposing_club;
     }
+
+    // Getter et Setter
+    // Id
+    public function getId(): ?int {
+        return $this->id;
+    }
+
+    public function setId(int $id): void {
+        $this->id = $id;
+    }
 }
