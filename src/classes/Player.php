@@ -51,4 +51,13 @@ class Player {
     public function setBirthdate(DateTime $birthdate): void {
         $this->birthdate = $birthdate;
     }
+
+    // Picture
+    public function getPicture(): ?string {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): void {
+        $this->picture = $picture;
+    }
 }
