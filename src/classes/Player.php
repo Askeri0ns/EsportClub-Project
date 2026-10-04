@@ -42,4 +42,13 @@ class Player {
     public function setLastname(string $lastname): void {
         return $this->lastname = $lastname;
     }
+
+    // Birthdate
+    public function getBirthdate(): DateTime {
+        return $this->birthdate;
+    }
+
+    public function setBirthdate(DateTime $birthdate): void {
+        $this->birthdate = $birthdate;
+    }
 }
