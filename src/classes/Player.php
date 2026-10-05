@@ -22,8 +22,9 @@ class Player {
         return $this->$id;
     }
 
-    public function setId(int $id): void{
+    public function setId(int $id): static{
         return $this->id = $id;
+        return $this
     }
 
     // Firsname
@@ -31,8 +32,9 @@ class Player {
         return $this->firstname;
     }
 
-    public function setDate(string $firstname): void {
-        return $this->firstname = $firstname;
+    public function setDate(string $firstname): static {
+        $this->firstname = $firstname;
+        return $this
     }
 
     // Lastname
@@ -40,8 +42,9 @@ class Player {
         return $this->lastname;
     }
 
-    public function setLastname(string $lastname): void {
-        return $this->lastname = $lastname;
+    public function setLastname(string $lastname): static {
+        $this->lastname = $lastname;
+        return $this
     }
 
     // Birthdate
@@ -49,8 +52,9 @@ class Player {
         return $this->birthdate;
     }
 
-    public function setBirthdate(DateTime $birthdate): void {
+    public function setBirthdate(DateTime $birthdate): static {
         $this->birthdate = $birthdate;
+        return $this
     }
 
     // Picture
@@ -58,7 +62,8 @@ class Player {
         return $this->picture;
     }
 
-    public function setPicture(?string $picture): void {
+    public function setPicture(?string $picture): static {
         $this->picture = $picture;
+        return $this
     }
 }
