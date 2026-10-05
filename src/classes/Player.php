@@ -23,7 +23,7 @@ class Player {
     }
 
     public function setId(int $id): static{
-        return $this->id = $id;
+        $this->id = $id;
         return $this
     }
 
