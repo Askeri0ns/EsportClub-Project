@@ -1,6 +1,8 @@
 # EsportClub-Project
-Site de gestion d'un club d'E-sport, de ses joueurs, équipes et matchs.
+Site de gestion d'un club d'E-sport, de ses joueurs, des équipes et des matchs.
 
+---
+Schéma relationnel de la base de données et du projet :
 ```mermaid
 erDiagram
 	PLAYER {
