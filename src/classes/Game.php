@@ -76,13 +76,13 @@ class Game {
         return $this
     }
 
-    // city
-    public function getCity(): string {
-        return $this->city;
+    // Opposing_Club
+    public function getOpposingClub(): Opposing_Club {
+        return $this->opposing_club;
     }
 
-    public function setCity(string $city): void {
-        $this->city = $newCity;
+    public function setOpposingClub(string $opposing_club): void {
+        $this->opposing_club = $opposing_club;
         return $this
     }
 }
