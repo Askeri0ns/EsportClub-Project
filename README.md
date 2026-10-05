@@ -46,5 +46,5 @@ erDiagram
 	TEAM ||--o{ PLAYERHASTEAM : ""
 	PLAYER ||--o{ PLAYERHASTEAM : ""
 	TEAM ||--o{ GAME : ""
-	OPPOSING_CLUB ||--o{ MATCH : ""
+	OPPOSINGCLUB ||--o{ GAME : ""
 ```
