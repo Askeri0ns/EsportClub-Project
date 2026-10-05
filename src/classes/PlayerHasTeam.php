@@ -1,6 +1,6 @@
 <?php
 
-class PlayerHasTeame
+class PlayerHasTeam
 {
     // Attributs
     private Player $player;
