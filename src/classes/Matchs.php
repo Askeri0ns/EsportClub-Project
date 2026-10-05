@@ -29,4 +29,15 @@ class Matchs {
     public function setId(int $id): void {
         $this->id = $id;
     }
+
+    // Team_Score
+    public function getTeamScore(): string {
+        return $this->team_score;
+    }
+
+    public function setTeamScore(string $): void {
+        $this->team_score = $team_score;
+    }
+
+
 }

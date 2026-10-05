@@ -54,7 +54,7 @@ class Player {
     }
 
     // Picture
-    public function getPicture(): string {
+    public function getPicture(): ?string {
         return $this->picture;
     }
 
