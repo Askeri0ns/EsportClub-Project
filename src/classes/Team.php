@@ -2,13 +2,9 @@
 
 class Team
 {
-    // Attributs
-    private string $name;
-
     // Constructeur
-    public function __construct(string $name)
+    public function __construct(private string $name)
     {
-        $this->name = $name;
     }
 
     // Accesseurs

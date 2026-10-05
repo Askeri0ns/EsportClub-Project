@@ -2,20 +2,9 @@
 
 class StaffMember
 {
-    // Attributs
-    private string $firstname;
-    private string $lastname;
-    private DateTime $birthdate;
-    private string $role;
-    private string $picture;
-
     // Constructeur
-    public function __construct(string $firstname, string $lastname, DateTime $birthdate, string $role, ?string $picture = null) {
-        $this->firstname = $firstname;
-        $this->lastname = $lastname;
-        $this->birthdate = $birthdate;
-        $this->role = $role;
-        $this->picture = $picture;
+    public function __construct(private string $firstname, private string $lastname, private DateTime $birthdate, private StaffRole $role, private ?string $picture = null)
+    {
     }
 
     // Accesseurs
@@ -56,11 +45,11 @@ class StaffMember
     // Role (Getter & Setter)
     public function getRole(): string
     {
-        return $this->role;
+        return $this->role->value;
     }
     public function setRole(string $newRole): static
     {
-        $this->role = $newRole;
+        $this->role = StaffRole::tryFrom($newRole);
         return $this;
     }
     
@@ -75,3 +64,11 @@ class StaffMember
         return $this;
     }
 }
+
+enum StaffRole: string
+{
+    case Manager = "manager";
+    case Coach = "coach";
+    case Analyste = "analyste";
+    case Commentateur = "commentateur";
+};

@@ -2,17 +2,9 @@
 
 class OpposingClub
 {
-    // Attributs
-    private string $name;
-    private string $address;
-    private string $city;
-
     // Constructeur
-    public function __construct(string $name, string $address, string $city)
+    public function __construct(private string $name, private string $address, private string $city)
     {
-        $this->name = $name;
-        $this->address = $address;
-        $this->city = $city;
     }
 
     // Accesseurs

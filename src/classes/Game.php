@@ -2,23 +2,9 @@
 
 class Game
 {
-    // Attributs
-    private int $teamScore;
-    private int $opponentScore;
-    private Team $team;
-    private OpposingClub $opposingClub;
-    private DateTime $date;
-    private string $city;
-
     // Constructeur
-    public function __construct(int $teamScore, int $opponentScore, Team $team, OpposingClub $opposingClub, DateTime $date, string $city)
+    public function __construct(private int $teamScore, private int $opponentScore, private Team $team, private OpposingClub $opposingClub, private DateTime $date, private string $city)
     {
-        $this->teamScore = $teamScore;
-        $this->opponentScore = $opponentScore;
-        $this->team = $team;
-        $this->opposingClub = $opposingClub;
-        $this->date = $date;
-        $this->city = $city;
     }
 
     // Accesseurs
