@@ -39,12 +39,50 @@ class Game {
         $this->team_score = $team_score;
     }
 
-    // Opposing_Club
-    public function getOpposingClub(): string {
+    // opponent_score
+    public function getOpponentScore(): int {
         return $this->opponent_score;
     }
 
-    public function setOpposingClub(string $opponent_score): void {
+    public function setOpponentScore(int $opponent_score): void {
         $this->opponent_score = $opponent_score;
+    }
+
+    // DateTime
+    public function getDate(): DateTime {
+        return $this->date;
+    }
+
+    public function setDate(DateTime $date): void {
+        $this->date = $date;
+    }
+
+    // Team
+    public function getTeam(): Team {
+        return $this->team;
+    }
+
+    public function setTeam(Team $team): void {
+        $this->team = $team;
+    }
+
+    // city
+    public function getCity(): string {
+        return $this->city;
+    }
+
+    public function setCity(string $city): void {
+        $this->city = $newCity;
+        return $this
+    }
+
+    // Opposing_Club
+    public function getOpposingClub(): Opposing_Club {
+        return $this->opposing_club;
+    }
+
+    public function setOpposingClub(string $opposing_club): void {
+        $this->opposing_club = $opposing_club;
+        return $this
     }
 }
