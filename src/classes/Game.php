@@ -1,6 +1,7 @@
 <?php
 
-class Game {
+class Game
+{
     // Attributs
     private int $id;
     private int $teamScore;
@@ -11,83 +12,98 @@ class Game {
     private OpposingClub $opposingClub;
 
     // Constructeur
-    public function __construct(int $teamScore, int $opponentScore, DateTime $date, Team $team, string $city,Opposing_Club $opposingClub) {
-        $this->team_score = $teamScore;
-        $this->opponent_score = $opponentScore;
+    public function __construct(int $teamScore, int $opponentScore, DateTime $date, Team $team, string $city, OpposingClub $opposingClub) {
+        $this->teamScore = $teamScore;
+        $this->opponentScore = $opponentScore;
         $this->date = $date;
         $this->team = $team;
         $this->city = $city;
-        $this->opposing_club = $opposingClub;
+        $this->opposingClub = $opposingClub;
     }
 
-    // Getter et Setter
-    // Id
-    public function getId(): ?int {
+    // Accesseurs
+
+    // Id (Getter & Setter)
+    public function getId(): ?int
+    {
         return $this->id;
     }
 
-    public function setId(int $id): static {
+    public function setId(int $id): static
+    {
         $this->id = $id;
         return $this;
     }
 
-    // Team_Score
-    public function getTeamScore(): int {
+    // TeamScore (Getter & Setter)
+    public function getTeamScore(): int
+    {
         return $this->teamScore;
     }
 
-    public function setTeamScore(string $teamScore): static {
-        $this->teamScore = $teamScore;
+    public function setTeamScore(int $newTeamScore): static
+    {
+        $this->teamScore = $newTeamScore;
         return $this;
     }
 
-    // opponent_score
-    public function getOpponentScore(): int {
+    // OpponentScore (Getter & Setter)
+    public function getOpponentScore(): int
+    {
         return $this->opponentScore;
     }
 
-    public function setOpponentScore(int $opponentScore): static {
+    public function setOpponentScore(int $newOpponentScore): static
+    {
         $this->opponentScore = $newOpponentScore;
         return $this;
     }
 
-    // DateTime
-    public function getDate(): DateTime {
+    // Date (Getter & Setter)
+    public function getDate(): DateTime
+    {
         return $this->date;
     }
 
-    public function setDate(DateTime $date): static {
+    public function setDate(DateTime $newDate): static
+    {
         $this->date = $newDate;
         return $this;
     }
 
-    // Team
-    public function getTeam(): Team {
+    // Team (Getter & Setter)
+    public function getTeam(): Team
+    {
         return $this->team;
     }
 
-    public function setTeam(Team $team): static {
-        $this->team = $Newteam;
+    public function setTeam(Team $newTeam): static
+    {
+        $this->team = $newTeam;
         return $this;
     }
 
-    // city
-    public function getCity(): string {
+    // City (Getter & Setter)
+    public function getCity(): string
+    {
         return $this->city;
     }
 
-    public function setCity(string $city): static {
+    public function setCity(string $newCity): static
+    {
         $this->city = $newCity;
         return $this;
     }
 
-    // Opposing_Club
-    public function getOpposingClub(): OpposingClub {
-        return $this->OpposingClub;
+    // OpposingClub (Getter & Setter)
+    public function getOpposingClub(): OpposingClub
+    {
+        return $this->opposingClub;
     }
 
-    public function setOpposingClub(string $opposingClub): static {
-        $this->OpposingClub = $opposingClub;
+    public function setOpposingClub(OpposingClub $newOpposingClub): static
+    {
+        $this->opposingClub = $newOpposingClub;
         return $this;
     }
 }
