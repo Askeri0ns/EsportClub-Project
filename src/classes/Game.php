@@ -12,9 +12,10 @@ class Game
     private OpposingClub $opposingClub;
 
     // Constructeur
-    public function __construct(int $teamScore, int $opponentScore, DateTime $date, Team $team, string $city,Opposing_Club $opposingClub) {
-        $this->team_score = $teamScore;
-        $this->opponent_score = $opponentScore;
+    public function __construct(int $teamScore, int $opponentScore, DateTime $date, Team $team, string $city,OpposingClub $opposingClub)
+    {
+        $this->teamScore = $teamScore;
+        $this->opponentScore = $opponentScore;
         $this->date = $date;
         $this->team = $team;
         $this->city = $city;
