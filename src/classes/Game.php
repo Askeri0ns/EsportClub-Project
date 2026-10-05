@@ -39,12 +39,21 @@ class Game {
         $this->team_score = $team_score;
     }
 
-    // Opposing_Club
-    public function getOpposingClub(): string {
+    // opponent_score
+    public function getOpponentScore(): string {
         return $this->opponent_score;
     }
 
-    public function setOpposingClub(string $opponent_score): void {
+    public function setOpponentScore(string $opponent_score): void {
         $this->opponent_score = $opponent_score;
+    }
+
+    // DateTime
+    public function getDate(): DateTime {
+        return $this->date;
+    }
+
+    public function setOpposingClub(DateTime $date): void {
+        $this->date = $date;
     }
 }
