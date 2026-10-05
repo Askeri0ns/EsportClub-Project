@@ -1,6 +1,7 @@
 <?php
 
-class Player {
+class Player
+{
     // Attributs
     private int $id;
     private string $firstname;
@@ -9,61 +10,68 @@ class Player {
     private string $picture;
 
     // Constructeur
-    public function __construct(string $firstname, string $lastname, DateTime $birthdate, ?string $picture = null) {
+    public function __construct(string $firstname, string $lastname, DateTime $birthdate, ?string $picture = null)
+    {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->birthdate = $birthdate;
         $this->picture = $picture;
     }
 
-    // Getter et Setter
-    // Id
-    public function getId(): int{
-        return $this->$id;
+    // Accesseurs
+
+    // Id (Getter & Setter)
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+    public function setId(int $newId): static
+    {
+        $this->id = $newId;
+        return $this;
     }
 
-    public function setId(int $id): static{
-        $this->id = $id;
-        return $this
-    }
-
-    // Firsname
-    public function getDate(): DateTime {
+    // Firsname (Getter & Setter)
+    public function getFirstname(): string
+    {
         return $this->firstname;
     }
-
-    public function setDate(string $firstname): static {
-        $this->firstname = $firstname;
-        return $this
+    public function setFirstname(string $newFirstname): static
+    {
+        $this->firstname = $newFirstname;
+        return $this;
     }
 
-    // Lastname
-    public function getLastname(): DateTime {
+    // Lastname (Getter & Setter)
+    public function getLastname(): string
+    {
         return $this->lastname;
     }
-
-    public function setLastname(string $lastname): static {
-        $this->lastname = $lastname;
-        return $this
+    public function setLastname(string $newLastname): static
+    {
+        $this->lastname = $newLastname;
+        return $this;
     }
 
-    // Birthdate
-    public function getBirthdate(): DateTime {
+    // Birthdate (Getter & Setter)
+    public function getBirthdate(): DateTime
+    {
         return $this->birthdate;
     }
-
-    public function setBirthdate(DateTime $birthdate): static {
-        $this->birthdate = $birthdate;
-        return $this
+    public function setBirthdate(DateTime $newBirthdate): static
+    {
+        $this->birthdate = $newBirthdate;
+        return $this;
     }
 
     // Picture
-    public function getPicture(): ?string {
+    public function getPicture(): ?string
+    {
         return $this->picture;
     }
-
-    public function setPicture(?string $picture): static {
-        $this->picture = $picture;
-        return $this
+    public function setPicture(string $newPicture): static
+    {
+        $this->picture = $newPicture;
+        return $this;
     }
 }

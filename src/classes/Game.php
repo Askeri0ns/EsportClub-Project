@@ -12,7 +12,8 @@ class Game
     private OpposingClub $opposingClub;
 
     // Constructeur
-    public function __construct(int $teamScore, int $opponentScore, DateTime $date, Team $team, string $city, OpposingClub $opposingClub) {
+    public function __construct(int $teamScore, int $opponentScore, DateTime $date, Team $team, string $city, OpposingClub $opposingClub)
+    {
         $this->teamScore = $teamScore;
         $this->opponentScore = $opponentScore;
         $this->date = $date;
@@ -28,7 +29,6 @@ class Game
     {
         return $this->id;
     }
-
     public function setId(int $id): static
     {
         $this->id = $id;
@@ -40,7 +40,6 @@ class Game
     {
         return $this->teamScore;
     }
-
     public function setTeamScore(int $newTeamScore): static
     {
         $this->teamScore = $newTeamScore;
@@ -52,7 +51,6 @@ class Game
     {
         return $this->opponentScore;
     }
-
     public function setOpponentScore(int $newOpponentScore): static
     {
         $this->opponentScore = $newOpponentScore;
@@ -64,7 +62,6 @@ class Game
     {
         return $this->date;
     }
-
     public function setDate(DateTime $newDate): static
     {
         $this->date = $newDate;
@@ -76,7 +73,6 @@ class Game
     {
         return $this->team;
     }
-
     public function setTeam(Team $newTeam): static
     {
         $this->team = $newTeam;
@@ -88,7 +84,6 @@ class Game
     {
         return $this->city;
     }
-
     public function setCity(string $newCity): static
     {
         $this->city = $newCity;
@@ -100,7 +95,6 @@ class Game
     {
         return $this->opposingClub;
     }
-
     public function setOpposingClub(OpposingClub $newOpposingClub): static
     {
         $this->opposingClub = $newOpposingClub;
