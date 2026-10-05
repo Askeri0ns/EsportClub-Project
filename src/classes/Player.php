@@ -18,11 +18,11 @@ class Player {
 
     // Getter et Setter
     // Id
-    public function getID(): int{
+    public function getId(): int{
         return $this->$id;
     }
 
-    public function setID(int $id): void{
+    public function setId(int $id): void{
         return $this->id = $id;
     }
 
