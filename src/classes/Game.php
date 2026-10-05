@@ -65,4 +65,24 @@ class Game {
     public function setTeam(Team $team): void {
         $this->team = $team;
     }
+
+    // city
+    public function getCity(): string {
+        return $this->city;
+    }
+
+    public function setCity(string $city): void {
+        $this->city = $newCity;
+        return $this
+    }
+
+    // city
+    public function getCity(): string {
+        return $this->city;
+    }
+
+    public function setCity(string $city): void {
+        $this->city = $newCity;
+        return $this
+    }
 }
