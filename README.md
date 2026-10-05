@@ -10,7 +10,7 @@ erDiagram
 		birthdate DATETIME
 		picture VARCHAR(255)
 	}
-	PLAYER_HAS_TEAM {
+	PLAYERHASTEAM {
 		player_id INT FK
 		team_id INT FK
 		role VARCHAR(255)
@@ -19,7 +19,7 @@ erDiagram
 		id INT PK
 		name VARCHAR(255)
 	}
-	MATCH {
+	GAME {
 		id INT PK
 		team_score INT
 		opponent_score INT
@@ -28,13 +28,13 @@ erDiagram
 		city VARCHAR(255)
 		opposing_club_id INT FK
 	}
-	OPPOSING_CLUB {
+	OPPOSINGCLUB {
 		id INT PK
 		name VARCHAR(255)
 		adress VARCHAR(255)
 		city VARCHAR(255)
 	}
-	STAFF_MEMBER {
+	STAFFMEMBER {
 		id INT PK
 		firstname VARCHAR(255)
 		lastname VARCHAR(255)
@@ -43,8 +43,8 @@ erDiagram
 		role VARCHAR(255)
 	}
 	
-	TEAM ||--o{ PLAYER_HAS_TEAM : ""
-	PLAYER ||--o{ PLAYER_HAS_TEAM : ""
-	TEAM ||--o{ MATCH : ""
+	TEAM ||--o{ PLAYERHASTEAM : ""
+	PLAYER ||--o{ PLAYERHASTEAM : ""
+	TEAM ||--o{ GAME : ""
 	OPPOSING_CLUB ||--o{ MATCH : ""
 ```
