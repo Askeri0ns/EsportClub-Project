@@ -11,7 +11,7 @@ class StaffMember
     private string $picture;
 
     // Constructeur
-    public function __construct(string $firstname, string $lastname, DateTime $birthdate, string $role, ?string $picture) {
+    public function __construct(string $firstname, string $lastname, DateTime $birthdate, string $role, ?string $picture = null) {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->birthdate = $birthdate;
@@ -22,7 +22,7 @@ class StaffMember
     // Accesseurs
     
     // Id (Getter & Setter)
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
