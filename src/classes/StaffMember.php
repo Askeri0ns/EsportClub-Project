@@ -1,6 +1,6 @@
 <?php
 
-class StaffMember
+class StaffMembere
 {
     // Attributs
     private int $id;

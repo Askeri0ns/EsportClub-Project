@@ -1,6 +1,6 @@
 <?php
 
-class OpposingClub
+class OpposingClube
 {
     // Attributs
     private int $id;
