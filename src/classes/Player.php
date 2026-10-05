@@ -3,7 +3,6 @@
 class Player
 {
     // Attributs
-    private int $id;
     private string $firstname;
     private string $lastname;
     private DateTime $birthdate;
@@ -19,17 +18,6 @@ class Player
     }
 
     // Accesseurs
-
-    // Id (Getter & Setter)
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-    public function setId(int $newId): static
-    {
-        $this->id = $newId;
-        return $this;
-    }
 
     // Firsname (Getter & Setter)
     public function getFirstname(): string

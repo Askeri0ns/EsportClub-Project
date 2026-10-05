@@ -3,7 +3,6 @@
 class OpposingClub
 {
     // Attributs
-    private int $id;
     private string $name;
     private string $address;
     private string $city;
@@ -17,17 +16,6 @@ class OpposingClub
     }
 
     // Accesseurs
-    
-    // Id (Getter & Setter)
-    public function getId(): int
-    {
-        return $this->id;
-    }
-    public function setId(int $newId): static
-    {
-        $this->id = $newId;
-        return $this;
-    }
 
     // Name (Getter & Setter)
     public function getName(): string

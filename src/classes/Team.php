@@ -3,7 +3,6 @@
 class Team
 {
     // Attributs
-    private int $id;
     private string $name;
 
     // Constructeur
@@ -13,17 +12,6 @@ class Team
     }
 
     // Accesseurs
-
-    //Id (Getter & Setter)
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-    public function setId(int $newId): static
-    {
-        $this->id = $newId;
-        return $this;
-    }
 
     // Name (Getter & Setter)
     public function getName(): string

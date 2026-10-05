@@ -3,7 +3,6 @@
 class StaffMember
 {
     // Attributs
-    private int $id;
     private string $firstname;
     private string $lastname;
     private DateTime $birthdate;
@@ -20,17 +19,6 @@ class StaffMember
     }
 
     // Accesseurs
-    
-    // Id (Getter & Setter)
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-    public function setId(int $newId): static
-    {
-        $this->id = $newId;
-        return $this;
-    }
     
     // Firstname (Getter & Setter)
     public function getFirstname(): string
