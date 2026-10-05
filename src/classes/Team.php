@@ -26,7 +26,7 @@ class Team {
         return $this->$name;
     }
 
-    public function setId(string $name): static{
+    public function setName(string $name): static{
         $this->name = $name;
         return $this
     }

@@ -12,12 +12,12 @@ class Game {
 
     // Constructeur
     public function __construct(int $teamScore, int $opponentScore, DateTime $date, Team $team, string $city,Opposing_Club $opposingClub) {
-        $this->team_score = $teamScore;
-        $this->opponent_score = $opponentScore;
+        $this->teamScore = $teamScore;
+        $this->opponentScore = $opponentScore;
         $this->date = $date;
         $this->team = $team;
         $this->city = $city;
-        $this->opposing_club = $opposingClub;
+        $this->opposingClub = $opposingClub;
     }
 
     // Getter et Setter
