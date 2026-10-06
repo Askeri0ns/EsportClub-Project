@@ -18,7 +18,8 @@ class OpposingClubDatabase
         $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         $clubs = [];
-        foreach ($rows as $row) {
+        foreach ($rows as $row)
+        {
             $clubs[] = new OpposingClub(
                 $row['name'],
                 $row['address'],
