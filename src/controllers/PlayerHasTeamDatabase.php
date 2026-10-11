@@ -6,55 +6,97 @@ require_once __DIR__ . '/../classes/Team.php';
 
 class PlayerHasTeamDatabase
 {
-    private PDO $pdo;
+    // Requête de base : une association avec les informations du joueur
+    private const SELECT = 'SELECT p.firstname, p.lastname, p.birthdate, p.picture, pht.team_name, pht.role
+                            FROM Player_has_Team pht
+                            JOIN Player p ON p.id = pht.player_id';
 
-    public function __construct()
+    // Constructeur
+    public function __construct(private PDO $pdo)
     {
-        // Connexion à la base SQLite
-        $this->pdo = new PDO('sqlite:' . __DIR__ . '/E-sportsClub.db');
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    /**
-     * Enregistre l'association entre un joueur et une équipe
-     */
-    public function insert(int $playerId, string $teamName): void
+    // Transformer une ligne de la base en objet PlayerHasTeam
+    private function hydrate(array $data): PlayerHasTeam
     {
-        $sql = 'INSERT INTO Player_has_Team (player_id, team_name) VALUES (:player_id, :team_name)';
-        $stmt = $this->pdo->prepare($sql);
+        return new PlayerHasTeam(
+            new Player($data['firstname'], $data['lastname'], new DateTime($data['birthdate']), $data['picture']),
+            new Team($data['team_name']),
+            PlayerRole::from($data['role'])
+        );
+    }
 
-        $stmt->execute([
-            ':player_id' => $playerId,
-            ':team_name' => $teamName,
+    // Obtenir toutes les associations d'un joueur (via son identifiant)
+    public function getByPlayer(int $playerId): array
+    {
+        $query = $this->pdo->prepare(self::SELECT . ' WHERE pht.player_id = :player_id');
+        $query->execute(['player_id' => $playerId]);
+        $associations = [];
+
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data)
+        {
+            $associations[] = $this->hydrate($data);
+        }
+        return $associations;
+    }
+
+    // Obtenir toutes les associations d'une équipe (via son nom)
+    public function getByTeam(string $teamName): array
+    {
+        $query = $this->pdo->prepare(self::SELECT . ' WHERE pht.team_name = :team_name');
+        $query->execute(['team_name' => $teamName]);
+        $associations = [];
+
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data)
+        {
+            $associations[] = $this->hydrate($data);
+        }
+        return $associations;
+    }
+
+    // Obtenir toutes les associations
+    public function getAll(): array
+    {
+        $query = $this->pdo->query(self::SELECT);
+        $associations = [];
+
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data)
+        {
+            $associations[] = $this->hydrate($data);
+        }
+        return $associations;
+    }
+
+    // Ajouter un joueur à une équipe
+    public function create(int $playerId, PlayerHasTeam $association): void
+    {
+        $query = $this->pdo->prepare('INSERT INTO Player_has_Team (player_id, team_name, role) VALUES (:player_id, :team_name, :role)');
+        $query->execute([
+            'player_id' => $playerId,
+            'team_name' => $association->getTeam()->getName(),
+            'role' => $association->getRole()
         ]);
     }
 
-    /**
-     * Récupère tous les joueurs d'une équipe précise
-     */
-    public function getPlayersByTeam(string $teamName): array
+    // Modifier l'association d'un joueur avec une équipe
+    public function update(int $playerId, string $teamName, PlayerHasTeam $association): void
     {
-        // On fait une jointure (JOIN) pour récupérer les vraies infos du joueur
-        $sql = 'SELECT p.id, p.firstname, p.lastname, p.birthdate, p.picture
-                FROM Player p
-                JOIN Player_has_Team pht ON p.id = pht.player_id
-                WHERE pht.team_name = :team_name';
+        $query = $this->pdo->prepare('UPDATE Player_has_Team SET team_name = :new_team_name, role = :role WHERE player_id = :player_id AND team_name = :team_name');
+        $query->execute([
+            'player_id' => $playerId,
+            'team_name' => $teamName,
+            'new_team_name' => $association->getTeam()->getName(),
+            'role' => $association->getRole()
+        ]);
+    }
 
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([':team_name' => $teamName]);
-
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $players = [];
-        foreach ($rows as $row) {
-            $players[] = new Player(
-                $row['firstname'],
-                $row['lastname'],
-                new DateTime($row['birthdate']),
-                $row['picture']
-            );
-        }
-
-        return $players;
+    // Retirer un joueur d'une équipe
+    public function delete(int $playerId, string $teamName): void
+    {
+        $query = $this->pdo->prepare('DELETE FROM Player_has_Team WHERE player_id = :player_id AND team_name = :team_name');
+        $query->execute([
+            'player_id' => $playerId,
+            'team_name' => $teamName
+        ]);
     }
 }

@@ -9,6 +9,17 @@ class PlayerDatabase
     {
     }
 
+    // Transformer une ligne de la base en objet Player
+    private function hydrate(array $data): Player
+    {
+        return new Player(
+            $data['firstname'],
+            $data['lastname'],
+            new DateTime($data['birthdate']),
+            $data['picture']
+        );
+    }
+
     // Obtenir un joueur via un identifiant
     public function getById(int $id): ?Player
     {
@@ -20,7 +31,7 @@ class PlayerDatabase
         {
             return null;
         }
-        return new Player($data['firstname'], $data['lastname'], $data['birthdate'], $data['picture']);
+        return $this->hydrate($data);
     }
 
     // Obtenir tous les joueurs
@@ -31,12 +42,7 @@ class PlayerDatabase
 
         foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data)
         {
-            $players[] = new Player(
-                $data['firstname'],
-                $data['lastname'],
-                $data['birthdate'],
-                $data['picture']
-            );
+            $players[] = $this->hydrate($data);
         }
         return $players;
     }
@@ -48,7 +54,7 @@ class PlayerDatabase
         $query->execute([
             'firstname' => $player->getFirstname(),
             'lastname' => $player->getLastname(),
-            'birthdate' => $player->getBirthdate(),
+            'birthdate' => $player->getBirthdate()->format('Y-m-d'),
             'picture' => $player->getPicture()
         ]);
     }
@@ -61,7 +67,7 @@ class PlayerDatabase
             'id' => $id,
             'firstname' => $player->getFirstname(),
             'lastname' => $player->getLastname(),
-            'birthdate' => $player->getBirthdate(),
+            'birthdate' => $player->getBirthdate()->format('Y-m-d'),
             'picture' => $player->getPicture()
         ]);
     }

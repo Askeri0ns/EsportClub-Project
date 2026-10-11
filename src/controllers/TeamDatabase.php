@@ -9,10 +9,16 @@ class TeamDatabase
     {
     }
 
+    // Transformer une ligne de la base en objet Team
+    private function hydrate(array $data): Team
+    {
+        return new Team($data['name']);
+    }
+
     // Obtenir une équipe via un identifiant
     public function getById(int $id): ?Team
     {
-        $query = $this->pdo->prepare('SELECT * FROM team WHERE id = :id');
+        $query = $this->pdo->prepare('SELECT * FROM Team WHERE id = :id');
         $query->execute(['id' => $id]);
 
         $data = $query->fetch(PDO::FETCH_ASSOC);
@@ -20,17 +26,18 @@ class TeamDatabase
         {
             return null;
         }
-        return new Team($data['name']);
+        return $this->hydrate($data);
     }
 
     // Obtenir toutes les équipes
     public function getAll(): array
     {
-        $query = $this->pdo->query('SELECT * FROM team');
+        $query = $this->pdo->query('SELECT * FROM Team');
         $teams = [];
-        while ($data = $query->fetch(PDO::FETCH_ASSOC))
+
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data)
         {
-            $teams[] = new Team($data['name']);
+            $teams[] = $this->hydrate($data);
         }
         return $teams;
     }
@@ -38,21 +45,26 @@ class TeamDatabase
     // Ajouter une équipe à la base de données
     public function create(Team $team): void
     {
-        $query = $this->pdo->prepare('INSERT INTO team (name) VALUES (:name)');
-        $query->execute(['name' => $team->getName()]);
+        $query = $this->pdo->prepare('INSERT INTO Team (name) VALUES (:name)');
+        $query->execute([
+            'name' => $team->getName()
+        ]);
     }
 
     // Modifier une équipe de la base de données
     public function update(int $id, Team $team): void
     {
-        $query = $this->pdo->prepare('UPDATE team SET name = :name WHERE id = :id');
-        $query->execute(['id' => $id, 'name' => $team->getName()]);
+        $query = $this->pdo->prepare('UPDATE Team SET name = :name WHERE id = :id');
+        $query->execute([
+            'id' => $id,
+            'name' => $team->getName()
+        ]);
     }
 
     // Supprimer une équipe de la base de données
     public function delete(int $id): void
     {
-        $query = $this->pdo->prepare('DELETE FROM team WHERE id = :id');
+        $query = $this->pdo->prepare('DELETE FROM Team WHERE id = :id');
         $query->execute(['id' => $id]);
     }
 }
