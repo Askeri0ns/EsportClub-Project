@@ -1,16 +1,10 @@
 <?php
 
-require_once __DIR__ . '/OpposingClubEnum.php';
-
 class OpposingClub
 {
     // Constructeur
-    public function __construct(
-        private string $name,
-        private string $address,
-        private string $city,
-        private OpposingClubEnum $type
-    ) {
+    public function __construct(private string $name, private string $address, private string $city)
+    {
     }
 
     // Accesseurs
@@ -45,17 +39,6 @@ class OpposingClub
     public function setCity(string $newCity): static
     {
         $this->city = $newCity;
-        return $this;
-    }
-
-    // Type (Getter & Setter)
-    public function getType(): OpposingClubEnum
-    {
-        return $this->type;
-    }
-    public function setType(OpposingClubEnum $newType): static
-    {
-        $this->type = $newType;
         return $this;
     }
 }

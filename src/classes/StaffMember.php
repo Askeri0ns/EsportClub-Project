@@ -3,8 +3,13 @@
 class StaffMember
 {
     // Constructeur
-    public function __construct(private string $firstname, private string $lastname, private DateTime $birthdate, private StaffRole $role, private ?string $picture = null)
-    {
+    public function __construct(
+        private string $firstname, 
+        private string $lastname, 
+        private DateTime $birthdate, 
+        private StaffRole $role, 
+        private ?string $picture = null
+    ){
     }
 
     // Accesseurs
@@ -64,11 +69,3 @@ class StaffMember
         return $this;
     }
 }
-
-enum StaffRole: string
-{
-    case Manager = "manager";
-    case Coach = "coach";
-    case Analyste = "analyste";
-    case Commentateur = "commentateur";
-};

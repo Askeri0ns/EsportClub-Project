@@ -1,10 +1,9 @@
 <?php
-require_once __DIR__ . '/GameEnum.php';
 
 class Game
 {
     // Constructeur
-    public function __construct(private int $teamScore, private int $opponentScore, private Team $team, private OpposingClub $opposingClub, private DateTime $date, private string $city, private GameEnum $type)
+    public function __construct(private int $teamScore, private int $opponentScore, private Team $team, private OpposingClub $opposingClub, private DateTime $date, private string $city)
     {
     }
 
@@ -73,18 +72,6 @@ class Game
     public function setCity(string $newCity): static
     {
         $this->city = $newCity;
-        return $this;
-    }
-
-    //GameEnum (Getter & Setter)
-    public function getType(): GameEnum
-    {
-        return $this->type;
-    }
-
-    public function setType(GameEnum $newType): static
-    {
-        $this->type = $newType;
         return $this;
     }
 }

@@ -3,8 +3,11 @@
 class PlayerHasTeam
 {
     // Constructeur
-    public function __construct(private Player $player, private Team $team, private PlayerRole $role)
-    {
+    public function __construct(
+        private Player $player, 
+        private Team $team, 
+        private PlayerRole $role,
+    ){
     }
 
     // Accesseurs
@@ -32,23 +35,14 @@ class PlayerHasTeam
     }
 
     // Role (Getter & Setter)
-    public function getRole(): string
+    public function getRole(): PlayerRole
     {
-        return $this->role->value;
+        return $this->role;
     }
-    public function setRole(string $newRole): static
+
+    public function setRole(PlayerRole $newRole): static
     {
-        $this->role = PlayerRole::tryFrom($newRole);
+        $this->role = $newRole;
         return $this;
     }
-}
-
-enum PlayerRole: string
-{
-    case DPS = 'dps';
-    case TANK = 'tank';
-    case SUPPORT = 'support';
-    case FLEX = 'flex';
-    case SNIPER = 'sniper';
-    case ENTRY = 'entry';
 }
