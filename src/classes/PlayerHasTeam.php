@@ -1,13 +1,12 @@
 <?php
 
+require_once __DIR__ . '/../enum/PlayerRole.php';
+
 class PlayerHasTeam
 {
     // Constructeur
-    public function __construct(
-        private Player $player, 
-        private Team $team, 
-        private PlayerRole $role,
-    ){
+    public function __construct(private Player $player, private Team $team, private PlayerRole $role)
+    {
     }
 
     // Accesseurs

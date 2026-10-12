@@ -1,15 +1,12 @@
 <?php
 
+require_once __DIR__ . '/../enum/StaffRole.php';
+
 class StaffMember
 {
     // Constructeur
-    public function __construct(
-        private string $firstname, 
-        private string $lastname, 
-        private DateTime $birthdate, 
-        private StaffRole $role, 
-        private ?string $picture = null
-    ){
+    public function __construct(private string $firstname, private string $lastname, private DateTime $birthdate, private StaffRole $role, private ?string $picture = null)
+    {
     }
 
     // Accesseurs
