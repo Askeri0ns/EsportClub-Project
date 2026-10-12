@@ -577,7 +577,7 @@ try {
         <section class="welcome">
             <div>
                 <p class="eyebrow"><span class="status-dot"></span> Tableau de bord du club</p>
-                <h1>Gérez votre club esport, <span>visez la victoire.</span></h1>
+                <h1>Gérez votre club, <span>visez la victoire.</span></h1>
                 <p class="welcome-copy">Retrouvez les effectifs et les résultats. Gérez les informations utiles au même endroit.</p>
             </div>
             <button class="primary-button" type="button" data-admin-open>Gérer le club <span aria-hidden="true">→</span></button>
