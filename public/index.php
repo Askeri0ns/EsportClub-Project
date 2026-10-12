@@ -37,6 +37,9 @@ function validDate(string $value, string $label): string
     if (!$date || $date->format('Y-m-d') !== $value) {
         throw new InvalidArgumentException("La date « {$label} » est invalide.");
     }
+    if ($date > new DateTimeImmutable('today')) {
+        throw new InvalidArgumentException("La date « {$label} » ne peut pas être dans le futur.");
+    }
 
     return $value;
 }
@@ -871,7 +874,7 @@ try {
                         <label>Prénom<input name="firstname" required maxlength="100" autocomplete="given-name"></label>
                         <label>Nom<input name="lastname" required maxlength="100" autocomplete="family-name"></label>
                     </div>
-                    <label>Date de naissance<input type="date" name="birthdate" required></label>
+                    <label>Date de naissance<input type="date" name="birthdate" required max="<?= escape(date('Y-m-d')) ?>"></label>
                     <label>Photo (URL, facultative)<input type="url" name="picture" maxlength="2048" placeholder="https://..."></label>
                     <button class="form-button" type="submit">Enregistrer le joueur <span aria-hidden="true">→</span></button>
                 </form>
@@ -941,7 +944,7 @@ try {
                     <input type="hidden" name="action" value="game">
                     <h3>Créer un match</h3>
                     <div class="field-row field-row-three">
-                        <label>Date<input type="date" name="date" required></label>
+                        <label>Date<input type="date" name="date" required max="<?= escape(date('Y-m-d')) ?>"></label>
                         <label>Lieu<input name="city" required maxlength="100" placeholder="Ville ou salle"></label>
                         <label>Équipe
                             <select name="team_id" required>
@@ -988,7 +991,7 @@ try {
                         <label>Prénom<input name="firstname" required maxlength="100"></label>
                         <label>Nom<input name="lastname" required maxlength="100"></label>
                     </div>
-                    <label>Date de naissance<input type="date" name="birthdate" required></label>
+                    <label>Date de naissance<input type="date" name="birthdate" required max="<?= escape(date('Y-m-d')) ?>"></label>
                     <label>Photo (URL, facultative)<input type="url" name="picture" maxlength="2048" placeholder="https://..."></label>
                 </div>
 
@@ -1041,7 +1044,7 @@ try {
                 <div class="edit-fields" data-fields="game">
                     <h3>Modifier le match</h3>
                     <div class="field-row">
-                        <label>Date<input type="date" name="date" required></label>
+                        <label>Date<input type="date" name="date" required max="<?= escape(date('Y-m-d')) ?>"></label>
                         <label>Lieu<input name="city" required maxlength="100"></label>
                     </div>
                     <label>Équipe
