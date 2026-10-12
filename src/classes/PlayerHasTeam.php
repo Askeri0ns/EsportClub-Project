@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../enum/PlayerRole.php';
+namespace src\classes;
+
+use src\enum\PlayerRole;
 
 class PlayerHasTeam
 {

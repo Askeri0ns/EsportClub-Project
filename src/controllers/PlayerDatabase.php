@@ -1,6 +1,9 @@
 <?php
 
-require_once __DIR__ . '/../classes/Player.php';
+namespace src\controllers;
+
+use DateTime, PDO;
+use src\classes\Player;
 
 class PlayerDatabase
 {

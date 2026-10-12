@@ -1,6 +1,9 @@
 <?php
 
-require_once __DIR__ . '/../enum/StaffRole.php';
+namespace src\classes;
+
+use DateTime;
+use src\enum\StaffRole;
 
 class StaffMember
 {

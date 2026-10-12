@@ -1,8 +1,11 @@
 <?php
 
-require_once __DIR__ . '/../classes/Game.php';
-require_once __DIR__ . '/../classes/Team.php';
-require_once __DIR__ . '/../classes/OpposingClub.php';
+namespace src\controllers;
+
+use DateTime, PDO;
+use src\classes\Game;
+use src\classes\Team;
+use src\classes\OpposingClub;
 
 class GameDatabase
 {

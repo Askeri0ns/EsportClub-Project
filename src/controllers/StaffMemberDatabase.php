@@ -1,6 +1,10 @@
 <?php
 
-require_once __DIR__ . '/../classes/StaffMember.php';
+namespace src\controllers;
+
+use DateTime, PDO;
+use src\classes\StaffMember;
+use src\enum\StaffRole;
 
 class StaffMemberDatabase
 {

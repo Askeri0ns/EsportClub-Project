@@ -1,5 +1,7 @@
 <?php
 
+namespace src\enum;
+
 enum PlayerRole: string
 {
     case DPS = 'dps';

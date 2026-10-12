@@ -1,11 +1,15 @@
 <?php
 
-require_once __DIR__ . '/../classes/Player.php';
-require_once __DIR__ . '/../classes/Team.php';
-require_once __DIR__ . '/../classes/OpposingClub.php';
-require_once __DIR__ . '/../classes/PlayerHasTeam.php';
-require_once __DIR__ . '/../classes/StaffMember.php';
-require_once __DIR__ . '/../classes/Game.php';
+require_once __DIR__ . '/../src/autoloader.php';
+
+use src\classes\Game;
+use src\classes\OpposingClub;
+use src\classes\Player;
+use src\classes\PlayerHasTeam;
+use src\classes\StaffMember;
+use src\classes\Team;
+use src\enum\PlayerRole;
+use src\enum\StaffRole;
 
 // Jeu d'essai (fixtures)
 

@@ -1,5 +1,9 @@
 <?php
 
+namespace src\classes;
+
+use DateTime;
+
 class Game
 {
     // Constructeur

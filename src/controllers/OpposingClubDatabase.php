@@ -1,6 +1,9 @@
 <?php
 
-require_once __DIR__ . '/../classes/OpposingClub.php';
+namespace src\controllers;
+
+use PDO;
+use src\classes\OpposingClub;
 
 class OpposingClubDatabase
 {

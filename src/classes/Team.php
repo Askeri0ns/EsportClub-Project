@@ -1,5 +1,7 @@
 <?php
 
+namespace src\classes;
+
 class Team
 {
     // Constructeur

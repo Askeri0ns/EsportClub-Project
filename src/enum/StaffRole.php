@@ -1,5 +1,7 @@
 <?php
 
+namespace src\enum;
+
 enum StaffRole: string
 {
     case Manager = 'Manager';
