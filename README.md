@@ -61,6 +61,6 @@ Le point d'entrée `public/index.php` charge déjà l'autoloader. Pour un autre 
 
 Le site utilise la base SQLite `private/EsportsClub.db`. Depuis la racine du projet, démarrez le serveur PHP avec `php -S localhost:8000 -t public`, puis ouvrez `http://localhost:8000`. PHP doit inclure les extensions PDO et SQLite.
 
-Au premier chargement, l'application ajoute les colonnes `role` aux associations joueur-équipe et `city` aux matchs si elles manquent. Ces migrations conservent les enregistrements existants. Pour utiliser une autre base SQLite, définissez la variable d'environnement `ESPORTCLUB_DB_PATH`.
+Au premier chargement, l'application ajoute les colonnes `role` aux associations joueur-équipe, `city` aux matchs, ainsi que `birthdate` et `picture` au staff si elles manquent. Ces migrations conservent les enregistrements existants ; les membres du staff déjà présents sans date de naissance sont signalés comme non renseignés jusqu'à leur modification. Les photos de joueurs et du staff sont facultatives et enregistrées comme URL HTTP(S). Pour utiliser une autre base SQLite, définissez la variable d'environnement `ESPORTCLUB_DB_PATH`.
 
 Le tableau de bord affiche les matchs, joueurs et leurs rôles dans les équipes, équipes, membres du staff et clubs opposants. Le bouton « Ajouter » ouvre le panneau d'administration pour créer ces entrées, associer un joueur à une équipe ou enregistrer un match.

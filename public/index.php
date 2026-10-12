@@ -68,6 +68,15 @@ function validScore(string $field, string $label): int
     return $value;
 }
 
+function isValidPictureUrl(string $url): bool
+{
+    $scheme = parse_url($url, PHP_URL_SCHEME);
+
+    return filter_var($url, FILTER_VALIDATE_URL) !== false
+        && is_string($scheme)
+        && in_array(strtolower($scheme), ['http', 'https'], true);
+}
+
 function ensureColumn(PDO $pdo, string $table, string $column, string $definition): void
 {
     $columns = $pdo->query('PRAGMA table_info("' . $table . '")')->fetchAll();
@@ -127,6 +136,8 @@ try {
     try {
         ensureColumn($pdo, 'PlayerHasTeam', 'role', "TEXT NOT NULL DEFAULT 'FLEX'");
         ensureColumn($pdo, 'Game', 'city', "TEXT NOT NULL DEFAULT ''");
+        ensureColumn($pdo, 'Staff', 'birthdate', 'TEXT');
+        ensureColumn($pdo, 'Staff', 'picture', 'TEXT');
         $pdo->commit();
     } catch (Throwable $error) {
         if ($pdo->inTransaction()) {
@@ -149,8 +160,8 @@ try {
                     $lastname = requiredText('lastname', 'nom');
                     $birthdate = validDate(requiredText('birthdate', 'date de naissance'), 'naissance');
                     $picture = trim(postString('picture'));
-                    if ($picture !== '' && filter_var($picture, FILTER_VALIDATE_URL) === false) {
-                        throw new InvalidArgumentException('L’adresse de la photo doit être une URL valide.');
+                    if ($picture !== '' && !isValidPictureUrl($picture)) {
+                        throw new InvalidArgumentException('L’adresse de la photo doit être une URL HTTP ou HTTPS valide.');
                     }
 
                     $statement = $pdo->prepare(
@@ -216,13 +227,21 @@ try {
                     if ($role === null) {
                         throw new InvalidArgumentException('Sélectionnez une fonction valide pour le membre du staff.');
                     }
+                    $birthdate = validDate(requiredText('birthdate', 'date de naissance'), 'naissance');
+                    $picture = trim(postString('picture'));
+                    if ($picture !== '' && !isValidPictureUrl($picture)) {
+                        throw new InvalidArgumentException('L’adresse de la photo doit être une URL HTTP ou HTTPS valide.');
+                    }
 
                     $statement = $pdo->prepare(
-                        'INSERT INTO Staff (firstname, lastname, role) VALUES (:firstname, :lastname, :role)'
+                        'INSERT INTO Staff (firstname, lastname, birthdate, picture, role)
+                         VALUES (:firstname, :lastname, :birthdate, :picture, :role)'
                     );
                     $statement->execute([
                         'firstname' => requiredText('firstname', 'prénom'),
                         'lastname' => requiredText('lastname', 'nom'),
+                        'birthdate' => $birthdate,
+                        'picture' => $picture !== '' ? $picture : null,
                         'role' => $role->value,
                     ]);
                     $successKey = 'staff';
@@ -283,8 +302,8 @@ try {
                     switch ($entity) {
                         case 'player':
                             $picture = trim(postString('picture'));
-                            if ($picture !== '' && filter_var($picture, FILTER_VALIDATE_URL) === false) {
-                                throw new InvalidArgumentException('L’adresse de la photo doit être une URL valide.');
+                            if ($picture !== '' && !isValidPictureUrl($picture)) {
+                                throw new InvalidArgumentException('L’adresse de la photo doit être une URL HTTP ou HTTPS valide.');
                             }
                             $statement = $pdo->prepare(
                                 'UPDATE Player SET firstname = :firstname, lastname = :lastname,
@@ -363,13 +382,21 @@ try {
                             if ($role === null) {
                                 throw new InvalidArgumentException('Sélectionnez une fonction valide pour le membre du staff.');
                             }
+                            $birthdate = validDate(requiredText('birthdate', 'date de naissance'), 'naissance');
+                            $picture = trim(postString('picture'));
+                            if ($picture !== '' && !isValidPictureUrl($picture)) {
+                                throw new InvalidArgumentException('L’adresse de la photo doit être une URL HTTP ou HTTPS valide.');
+                            }
                             $statement = $pdo->prepare(
-                                'UPDATE Staff SET firstname = :firstname, lastname = :lastname, role = :role WHERE id = :id'
+                                'UPDATE Staff SET firstname = :firstname, lastname = :lastname,
+                                 birthdate = :birthdate, picture = :picture, role = :role WHERE id = :id'
                             );
                             $statement->execute([
                                 'id' => $id,
                                 'firstname' => requiredText('firstname', 'prénom'),
                                 'lastname' => requiredText('lastname', 'nom'),
+                                'birthdate' => $birthdate,
+                                'picture' => $picture !== '' ? $picture : null,
                                 'role' => $role->value,
                             ]);
                             $anchor = 'staff';
@@ -526,7 +553,9 @@ try {
     $opposingClubs = $pdo->query(
         'SELECT id, name, adress, city FROM OpposingClub ORDER BY name'
     )->fetchAll();
-    $staffMembers = $pdo->query('SELECT id, firstname, lastname, role FROM Staff ORDER BY lastname, firstname')->fetchAll();
+    $staffMembers = $pdo->query(
+        'SELECT id, firstname, lastname, birthdate, picture, role FROM Staff ORDER BY lastname, firstname'
+    )->fetchAll();
     $games = $pdo->query(
         'SELECT g.id, g.date, g.scoreTeam, g.scoreOpposing, g.city,
                 g.idTeam AS team_id, g.idOpposingClub AS club_id, t.name AS team_name,
@@ -658,7 +687,11 @@ try {
                 <div class="person-grid">
                     <?php foreach ($players as $player): ?>
                         <article class="person-card">
-                            <span class="avatar avatar-blue"><?= escape(mb_strtoupper(mb_substr($player['firstname'], 0, 1) . mb_substr($player['lastname'], 0, 1))) ?></span>
+                            <?php if (is_string($player['picture']) && isValidPictureUrl($player['picture'])): ?>
+                                <img class="avatar avatar-photo" src="<?= escape($player['picture']) ?>" alt="Photo de <?= escape($player['firstname'] . ' ' . $player['lastname']) ?>" loading="lazy">
+                            <?php else: ?>
+                                <span class="avatar avatar-blue"><?= escape(mb_strtoupper(mb_substr($player['firstname'], 0, 1) . mb_substr($player['lastname'], 0, 1))) ?></span>
+                            <?php endif; ?>
                             <div class="person-details">
                                 <div class="item-heading">
                                     <h3><?= escape($player['firstname'] . ' ' . $player['lastname']) ?></h3>
@@ -782,7 +815,11 @@ try {
                 <div class="person-grid">
                     <?php foreach ($staffMembers as $member): ?>
                         <article class="person-card">
-                            <span class="avatar avatar-green"><?= escape(mb_strtoupper(mb_substr($member['firstname'], 0, 1) . mb_substr($member['lastname'], 0, 1))) ?></span>
+                            <?php if (is_string($member['picture']) && isValidPictureUrl($member['picture'])): ?>
+                                <img class="avatar avatar-photo" src="<?= escape($member['picture']) ?>" alt="Photo de <?= escape($member['firstname'] . ' ' . $member['lastname']) ?>" loading="lazy">
+                            <?php else: ?>
+                                <span class="avatar avatar-green"><?= escape(mb_strtoupper(mb_substr($member['firstname'], 0, 1) . mb_substr($member['lastname'], 0, 1))) ?></span>
+                            <?php endif; ?>
                             <div class="person-details">
                                 <div class="item-heading">
                                     <h3><?= escape($member['firstname'] . ' ' . $member['lastname']) ?></h3>
@@ -791,6 +828,8 @@ try {
                                             data-id="<?= escape($member['id']) ?>"
                                             data-firstname="<?= escape($member['firstname']) ?>"
                                             data-lastname="<?= escape($member['lastname']) ?>"
+                                            data-birthdate="<?= escape($member['birthdate'] !== null ? dateInputValue((string) $member['birthdate']) : '') ?>"
+                                            data-picture="<?= escape($member['picture'] ?? '') ?>"
                                             data-role="<?= escape($member['role']) ?>">Modifier</button>
                                         <form method="post" data-confirm="Supprimer ce membre du staff ?">
                                             <input type="hidden" name="_csrf" value="<?= escape($csrfToken) ?>">
@@ -801,7 +840,7 @@ try {
                                         </form>
                                     </div>
                                 </div>
-                                <p><?= escape($member['role']) ?></p>
+                                <p><?= escape($member['role']) ?> · <?= $member['birthdate'] !== null ? 'Né(e) le ' . escape(displayDate((string) $member['birthdate'])) : 'Date de naissance non renseignée' ?></p>
                             </div>
                         </article>
                     <?php endforeach; ?>
@@ -920,6 +959,8 @@ try {
                         <label>Prénom<input name="firstname" required maxlength="100" autocomplete="given-name"></label>
                         <label>Nom<input name="lastname" required maxlength="100" autocomplete="family-name"></label>
                     </div>
+                    <label>Date de naissance<input type="date" name="birthdate" required max="<?= escape(date('Y-m-d')) ?>"></label>
+                    <label>Photo (URL, facultative)<input type="url" name="picture" maxlength="2048" placeholder="https://..."></label>
                     <label>Fonction
                         <select name="role" required>
                             <option value="">Choisir une fonction</option>
@@ -1027,6 +1068,8 @@ try {
                         <label>Prénom<input name="firstname" required maxlength="100"></label>
                         <label>Nom<input name="lastname" required maxlength="100"></label>
                     </div>
+                    <label>Date de naissance<input type="date" name="birthdate" required max="<?= escape(date('Y-m-d')) ?>"></label>
+                    <label>Photo (URL, facultative)<input type="url" name="picture" maxlength="2048" placeholder="https://..."></label>
                     <label>Fonction
                         <select name="role" required>
                             <?php foreach (StaffRole::cases() as $role): ?><option value="<?= escape($role->value) ?>"><?= escape($role->value) ?></option><?php endforeach; ?>
@@ -1095,7 +1138,7 @@ try {
             player: ['firstname', 'lastname', 'birthdate', 'picture'],
             team: ['name'],
             association: ['original_player_id', 'original_team_id', 'player_id', 'team_id', 'role'],
-            staff: ['firstname', 'lastname', 'role'],
+            staff: ['firstname', 'lastname', 'birthdate', 'picture', 'role'],
             club: ['name', 'address', 'city'],
             game: ['date', 'city', 'team_id', 'club_id', 'score_team', 'score_opponent'],
         };
@@ -1147,6 +1190,8 @@ try {
                     staff: {
                         firstname: button.dataset.firstname,
                         lastname: button.dataset.lastname,
+                        birthdate: button.dataset.birthdate,
+                        picture: button.dataset.picture,
                         role: button.dataset.role,
                     },
                     club: {
