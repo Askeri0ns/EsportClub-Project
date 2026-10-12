@@ -690,22 +690,7 @@ try {
                                             <span class="role-chip">
                                                 <?= escape($assignment['team_name']) ?>
                                                 <strong><?= escape(displayRole((string) $assignment['role'])) ?></strong>
-                                                <button class="role-edit" type="button" aria-label="Modifier l’association de <?= escape($player['firstname'] . ' ' . $player['lastname']) ?> à <?= escape($assignment['team_name']) ?>"
-                                                    data-edit="association"
-                                                    data-id="<?= escape($player['id']) ?>"
-                                                    data-player-id="<?= escape($player['id']) ?>"
-                                                    data-team-id="<?= escape($assignment['team_id']) ?>"
-                                                    data-role="<?= escape($assignment['role']) ?>">✎</button>
                                             </span>
-                                            <form class="inline-delete" method="post" data-confirm="Retirer ce joueur de l’équipe ?">
-                                                <input type="hidden" name="_csrf" value="<?= escape($csrfToken) ?>">
-                                                <input type="hidden" name="action" value="delete">
-                                                <input type="hidden" name="entity" value="association">
-                                                <input type="hidden" name="id" value="<?= escape($player['id']) ?>">
-                                                <input type="hidden" name="player_id" value="<?= escape($player['id']) ?>">
-                                                <input type="hidden" name="team_id" value="<?= escape($assignment['team_id']) ?>">
-                                                <button class="role-edit role-remove" type="submit" aria-label="Retirer <?= escape($player['firstname'] . ' ' . $player['lastname']) ?> de <?= escape($assignment['team_name']) ?>">×</button>
-                                            </form>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </div>
@@ -719,7 +704,10 @@ try {
         <section class="content-section" id="equipes">
             <div class="section-heading">
                 <div><p class="eyebrow">Collectifs du club</p><h2>Équipes internes</h2></div>
-                <a class="text-link" href="#ajouter-equipe" data-admin-form>Ajouter une équipe <span aria-hidden="true">→</span></a>
+                <div class="section-actions">
+                    <a class="text-link" href="#associer-joueur" data-admin-form>Associer un joueur <span aria-hidden="true">→</span></a>
+                    <a class="text-link" href="#ajouter-equipe" data-admin-form>Ajouter une équipe <span aria-hidden="true">→</span></a>
+                </div>
             </div>
             <?php if ($teams === []): ?>
                 <p class="empty-state">Aucune équipe enregistrée pour le moment.</p>
@@ -744,7 +732,30 @@ try {
                             <ul>
                             <?php foreach ($roster as $member): ?>
                                 <?php if ((int) $member['team_id'] === (int) $team['id']): ?>
-                                    <li><?= escape($member['firstname'] . ' ' . $member['lastname']) ?><span><?= escape(displayRole((string) $member['role'])) ?></span></li>
+                                    <li>
+                                        <span class="team-roster-name"><?= escape($member['firstname'] . ' ' . $member['lastname']) ?></span>
+                                        <div class="team-roster-details">
+                                            <span class="team-roster-role"><?= escape(displayRole((string) $member['role'])) ?></span>
+                                            <div class="item-actions">
+                                                <button class="item-action" type="button"
+                                                    aria-label="Modifier l’association de <?= escape($member['firstname'] . ' ' . $member['lastname']) ?> à <?= escape($team['name']) ?>"
+                                                    data-edit="association"
+                                                    data-id="<?= escape($member['player_id']) ?>"
+                                                    data-player-id="<?= escape($member['player_id']) ?>"
+                                                    data-team-id="<?= escape($team['id']) ?>"
+                                                    data-role="<?= escape($member['role']) ?>">Modifier</button>
+                                                <form method="post" data-confirm="Retirer ce joueur de l’équipe ?">
+                                                    <input type="hidden" name="_csrf" value="<?= escape($csrfToken) ?>">
+                                                    <input type="hidden" name="action" value="delete">
+                                                    <input type="hidden" name="entity" value="association">
+                                                    <input type="hidden" name="id" value="<?= escape($member['player_id']) ?>">
+                                                    <input type="hidden" name="player_id" value="<?= escape($member['player_id']) ?>">
+                                                    <input type="hidden" name="team_id" value="<?= escape($team['id']) ?>">
+                                                    <button class="item-action item-action-danger" type="submit">Retirer</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </li>
                                 <?php endif; ?>
                             <?php endforeach; ?>
                             </ul>
