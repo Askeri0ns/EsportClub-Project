@@ -13,10 +13,14 @@ class TeamDatabase
     }
 
     // Transformer une ligne de la base en objet Team
-    private function hydrate(array $data): Team
+private function hydrate(array $data): Team
     {
-        return new Team($data['name']);
+        return new Team (
+            $data['name'],
+            isset($data['id']) ? (int) $data['id'] : null
+        );
     }
+
 
     // Obtenir une équipe via un identifiant
     public function getById(int $id): ?Team
