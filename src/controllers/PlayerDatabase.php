@@ -50,6 +50,19 @@ class PlayerDatabase
         return $players;
     }
 
+    // Vérifier si un joueur existe déjà (par prénom, nom et date de naissance)
+    public function exists(string $firstname, string $lastname, string $birthdate): bool
+    {
+        $query = $this->pdo->prepare('SELECT COUNT(*) FROM Player WHERE firstname = :firstname AND lastname = :lastname AND birthdate = :birthdate');
+        $query->execute([
+            'firstname' => $firstname,
+            'lastname'  => $lastname,
+            'birthdate' => $birthdate
+        ]);
+
+        return (int) $query->fetchColumn() > 0;
+    }
+
     // Ajouter un joueur à la base de données
     public function create(Player $player): void
     {
