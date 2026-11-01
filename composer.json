@@ -1,0 +1,11 @@
+{
+  "name": "footclub/app",
+  "description": "Gestionnaire de club de foot BTS",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "require": {}
+}
