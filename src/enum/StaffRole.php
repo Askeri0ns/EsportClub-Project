@@ -8,4 +8,5 @@ enum StaffRole: string
     case Coach = 'Coach';
     case Analyste = 'Analyste';
     case Commentateur = 'Commentateur';
+    case ENTRAINEUR = 'entraineur';
 }

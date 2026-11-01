@@ -11,4 +11,6 @@ enum PlayerRole: string
     case SNIPER = 'sniper';
     case ENTRY = 'entry';
     case SUBSTITUE = 'substitue';
+    case LEADER = 'In-Game Leader';
+    case RIFLER = 'rifler';
 }
