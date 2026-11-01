@@ -10,5 +10,5 @@ enum PlayerRole: string
     case FLEX = 'flex';
     case SNIPER = 'sniper';
     case ENTRY = 'entry';
-    case SUBSTITUE = 'SUBSTITUE';
+    case SUBSTITUE = 'substitue';
 }
