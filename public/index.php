@@ -1,9 +1,15 @@
 <?php
 
+// Autoloader officiel de Composer
+require_once __DIR__ . '/../vendor/autoload.php';
+
+// Chargement des variables du fichier .env
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv->load();
+
 use src\enum\PlayerRole;
 use src\enum\StaffRole;
 
-require_once __DIR__ . '/../src/autoloader.php';
 session_start();
 
 function escape(mixed $value): string
