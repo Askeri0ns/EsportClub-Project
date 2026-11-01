@@ -12,7 +12,7 @@ class PlayerFormHandler
     {
     }
 
-    /**
+    /*
      * Traite les données du formulaire ($_POST)
      * Retourne un tableau d'erreurs (vide s'il n'y a pas d'erreur et que l'enregistrement a réussi)
      */
