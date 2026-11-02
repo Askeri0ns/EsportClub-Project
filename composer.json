@@ -1,6 +1,6 @@
 {
-  "name": "footclub/app",
-  "description": "Gestionnaire de club de foot BTS",
+  "name": "esportclub/app",
+  "description": "Gestionnaire de club d'Esport",
   "type": "project",
   "autoload": {
     "psr-4": {
