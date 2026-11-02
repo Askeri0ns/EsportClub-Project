@@ -8,5 +8,8 @@
       "src\\": "src/"
     }
   },
-  "require": {}
+  "require": {
+    "symfony/var-dumper": "^8.1",
+    "vlucas/phpdotenv": "^5.8"
+  }
 }
