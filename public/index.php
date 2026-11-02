@@ -106,7 +106,7 @@ function displayDate(string $value): string
 
 function displayRole(string $role): string
 {
-    return ucfirst(strtolower($role));
+    return PlayerRole::tryFrom($role)?->displayName() ?? ucfirst(strtolower($role));
 }
 
 function dateInputValue(string $value): string
@@ -951,7 +951,7 @@ try {
                     <label>Rôle en jeu
                         <select name="role" required>
                             <option value="">Choisir un rôle</option>
-                            <?php foreach (PlayerRole::cases() as $role): ?><option value="<?= escape($role->value) ?>"><?= escape(ucfirst($role->value)) ?></option><?php endforeach; ?>
+                            <?php foreach (PlayerRole::cases() as $role): ?><option value="<?= escape($role->value) ?>"><?= escape($role->displayName()) ?></option><?php endforeach; ?>
                         </select>
                     </label>
                     <button class="form-button" type="submit">Associer le joueur <span aria-hidden="true">→</span></button>
@@ -970,7 +970,7 @@ try {
                     <label>Fonction
                         <select name="role" required>
                             <option value="">Choisir une fonction</option>
-                            <?php foreach (StaffRole::cases() as $role): ?><option value="<?= escape($role->value) ?>"><?= escape($role->value) ?></option><?php endforeach; ?>
+                            <?php foreach (StaffRole::cases() as $role): ?><option value="<?= escape($role->value) ?>"><?= escape($role->displayName()) ?></option><?php endforeach; ?>
                         </select>
                     </label>
                     <button class="form-button" type="submit">Enregistrer le membre <span aria-hidden="true">→</span></button>
@@ -1063,7 +1063,7 @@ try {
                     </label>
                     <label>Rôle en jeu
                         <select name="role" required>
-                            <?php foreach (PlayerRole::cases() as $role): ?><option value="<?= escape($role->value) ?>"><?= escape(displayRole($role->value)) ?></option><?php endforeach; ?>
+                            <?php foreach (PlayerRole::cases() as $role): ?><option value="<?= escape($role->value) ?>"><?= escape($role->displayName()) ?></option><?php endforeach; ?>
                         </select>
                     </label>
                 </div>
@@ -1078,7 +1078,7 @@ try {
                     <label>Photo (URL, facultative)<input type="url" name="picture" maxlength="2048" placeholder="https://..."></label>
                     <label>Fonction
                         <select name="role" required>
-                            <?php foreach (StaffRole::cases() as $role): ?><option value="<?= escape($role->value) ?>"><?= escape($role->value) ?></option><?php endforeach; ?>
+                            <?php foreach (StaffRole::cases() as $role): ?><option value="<?= escape($role->value) ?>"><?= escape($role->displayName()) ?></option><?php endforeach; ?>
                         </select>
                     </label>
                 </div>

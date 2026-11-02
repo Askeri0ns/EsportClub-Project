@@ -2,13 +2,23 @@
 
 namespace src\classes;
 
+use src\attributes\Entity;
+use src\attributes\FieldConstraint;
 use src\enum\PlayerRole;
 
+#[Entity(table: 'Player_has_Team')]
 class PlayerHasTeam
 {
     // Constructeur
-    public function __construct(private Player $player, private Team $team, private PlayerRole $role)
-    {
+    public function __construct(
+        #[FieldConstraint]
+        private Player $player,
+        #[FieldConstraint]
+        private Team $team,
+        #[FieldConstraint]
+        private PlayerRole $role
+    ) {
+        FieldConstraint::validate($this);
     }
 
     // Accesseurs

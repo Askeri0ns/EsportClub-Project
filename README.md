@@ -47,6 +47,9 @@ Le code est séparé en deux couches :
  
 - **`src/classes/`** : une classe par entité (par exemple `src\classes\Game`).
 - **`src/controllers/`** : une classe `*Database` par entité (par exemple `src\controllers\GameDatabase`) qui gère les requêtes SQL via PDO.
+
+Les attributs PHP de l'application sont regroupés dans `src/attributes/`. `#[DisplayName]` définit le libellé affiché des rôles sans modifier leur valeur enregistrée. `#[Entity]` indique la table associée aux classes métier et `#[DatabaseController]` l'entité gérée par chaque contrôleur de base de données. `#[FieldConstraint]` décrit les limites numériques, longueurs et valeurs nullables des propriétés promues ; ses contraintes sont vérifiées à la construction et dans les setters concernés.
+
 ### Chargement automatique des classes
  
 Les classes sont chargées par l'autoloader. Le préfixe `src\` correspond au dossier `src/`, puis les namespaces suivent les sous-dossiers :

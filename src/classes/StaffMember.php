@@ -3,13 +3,27 @@
 namespace src\classes;
 
 use DateTime;
+use src\attributes\Entity;
+use src\attributes\FieldConstraint;
 use src\enum\StaffRole;
 
+#[Entity(table: 'Staff_Member')]
 class StaffMember
 {
     // Constructeur
-    public function __construct(private string $firstname, private string $lastname, private DateTime $birthdate, private StaffRole $role, private ?string $picture = null)
-    {
+    public function __construct(
+        #[FieldConstraint(minLength: 1, maxLength: 100)]
+        private string $firstname,
+        #[FieldConstraint(minLength: 1, maxLength: 100)]
+        private string $lastname,
+        #[FieldConstraint]
+        private DateTime $birthdate,
+        #[FieldConstraint]
+        private StaffRole $role,
+        #[FieldConstraint(nullable: true, maxLength: 2048)]
+        private ?string $picture = null
+    ) {
+        FieldConstraint::validate($this);
     }
 
     // Accesseurs
@@ -21,6 +35,7 @@ class StaffMember
     }
     public function setFirstname(string $newFirstname): static
     {
+        FieldConstraint::validateProperty($this, 'firstname', $newFirstname);
         $this->firstname = $newFirstname;
         return $this;
     }
@@ -32,6 +47,7 @@ class StaffMember
     }
     public function setLastname(string $newLastname): static
     {
+        FieldConstraint::validateProperty($this, 'lastname', $newLastname);
         $this->lastname = $newLastname;
         return $this;
     }
@@ -65,6 +81,7 @@ class StaffMember
     }
     public function setPicture(string $newPicture): static
     {
+        FieldConstraint::validateProperty($this, 'picture', $newPicture);
         $this->picture = $newPicture;
         return $this;
     }

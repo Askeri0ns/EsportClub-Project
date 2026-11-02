@@ -3,8 +3,10 @@
 namespace src\controllers;
 
 use DateTime, PDO;
+use src\attributes\DatabaseController;
 use src\classes\Player;
 
+#[DatabaseController(entityClass: Player::class)]
 class PlayerDatabase
 {
     // Constructeur

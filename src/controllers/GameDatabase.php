@@ -3,10 +3,12 @@
 namespace src\controllers;
 
 use DateTime, PDO;
+use src\attributes\DatabaseController;
 use src\classes\Game;
 use src\classes\Team;
 use src\classes\OpposingClub;
 
+#[DatabaseController(entityClass: Game::class)]
 class GameDatabase
 {
     // Requête de base : un match avec les informations de son club adverse

@@ -2,11 +2,20 @@
 
 namespace src\classes;
 
+use src\attributes\Entity;
+use src\attributes\FieldConstraint;
+
+#[Entity(table: 'Team')]
 class Team
 {
     // Constructeur
-    public function __construct(private string $name, private ?int $id = null)
-    {
+    public function __construct(
+        #[FieldConstraint(minLength: 1, maxLength: 100)]
+        private string $name,
+        #[FieldConstraint(nullable: true, min: 1)]
+        private ?int $id = null
+    ) {
+        FieldConstraint::validate($this);
     }
 
     // Accesseurs
@@ -18,6 +27,7 @@ class Team
     }
     public function setName(string $newName): static
     {
+        FieldConstraint::validateProperty($this, 'name', $newName);
         $this->name = $newName;
         return $this;
     }
@@ -30,6 +40,7 @@ class Team
 
     public function setId(int $id): static
     {
+        FieldConstraint::validateProperty($this, 'id', $id);
         $this->id = $id;
         return $this;
     }

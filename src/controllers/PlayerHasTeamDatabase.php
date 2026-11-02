@@ -3,11 +3,13 @@
 namespace src\controllers;
 
 use DateTime, PDO;
+use src\attributes\DatabaseController;
 use src\classes\Player;
 use src\classes\Team;
 use src\classes\PlayerHasTeam;
 use src\enum\PlayerRole;
 
+#[DatabaseController(entityClass: PlayerHasTeam::class)]
 class PlayerHasTeamDatabase
 {
     // Requête de base : une association avec les informations du joueur

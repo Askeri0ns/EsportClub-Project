@@ -3,12 +3,28 @@
 namespace src\classes;
 
 use DateTime;
+use src\attributes\Entity;
+use src\attributes\FieldConstraint;
 
+#[Entity(table: 'Game')]
 class Game
 {
     // Constructeur
-    public function __construct(private int $teamScore, private int $opponentScore, private Team $team, private OpposingClub $opposingClub, private DateTime $date, private string $city)
-    {
+    public function __construct(
+        #[FieldConstraint(min: 0)]
+        private int $teamScore,
+        #[FieldConstraint(min: 0)]
+        private int $opponentScore,
+        #[FieldConstraint]
+        private Team $team,
+        #[FieldConstraint]
+        private OpposingClub $opposingClub,
+        #[FieldConstraint]
+        private DateTime $date,
+        #[FieldConstraint(minLength: 1, maxLength: 100)]
+        private string $city
+    ) {
+        FieldConstraint::validate($this);
     }
 
     // Accesseurs
@@ -20,6 +36,7 @@ class Game
     }
     public function setTeamScore(int $newTeamScore): static
     {
+        FieldConstraint::validateProperty($this, 'teamScore', $newTeamScore);
         $this->teamScore = $newTeamScore;
         return $this;
     }
@@ -31,6 +48,7 @@ class Game
     }
     public function setOpponentScore(int $newOpponentScore): static
     {
+        FieldConstraint::validateProperty($this, 'opponentScore', $newOpponentScore);
         $this->opponentScore = $newOpponentScore;
         return $this;
     }
@@ -75,6 +93,7 @@ class Game
     }
     public function setCity(string $newCity): static
     {
+        FieldConstraint::validateProperty($this, 'city', $newCity);
         $this->city = $newCity;
         return $this;
     }

@@ -3,9 +3,11 @@
 namespace src\controllers;
 
 use DateTime, PDO;
+use src\attributes\DatabaseController;
 use src\classes\StaffMember;
 use src\enum\StaffRole;
 
+#[DatabaseController(entityClass: StaffMember::class)]
 class StaffMemberDatabase
 {
     // Constructeur

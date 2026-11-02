@@ -3,8 +3,10 @@
 namespace src\controllers;
 
 use PDO;
+use src\attributes\DatabaseController;
 use src\classes\OpposingClub;
 
+#[DatabaseController(entityClass: OpposingClub::class)]
 class OpposingClubDatabase
 {
     // Constructeur
