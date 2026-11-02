@@ -6,6 +6,7 @@ use DateTime;
 use src\attributes\Entity;
 use src\attributes\FieldConstraint;
 use src\enum\StaffRole;
+use InvalidArgumentException;
 
 #[Entity(table: 'Staff_Member')]
 class StaffMember
@@ -70,7 +71,12 @@ class StaffMember
     }
     public function setRole(string $newRole): static
     {
-        $this->role = StaffRole::tryFrom($newRole);
+        $role = StaffRole::tryFrom($newRole);
+        if ($role === null) {
+            throw new InvalidArgumentException('Le rôle du membre du staff est invalide.');
+        }
+
+        $this->role = $role;
         return $this;
     }
     
@@ -79,7 +85,7 @@ class StaffMember
     {
         return $this->picture;
     }
-    public function setPicture(string $newPicture): static
+    public function setPicture(?string $newPicture): static
     {
         FieldConstraint::validateProperty($this, 'picture', $newPicture);
         $this->picture = $newPicture;

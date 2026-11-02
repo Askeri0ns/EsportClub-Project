@@ -65,7 +65,7 @@ class Player
     {
         return $this->picture;
     }
-    public function setPicture(string $newPicture): static
+    public function setPicture(?string $newPicture): static
     {
         FieldConstraint::validateProperty($this, 'picture', $newPicture);
         $this->picture = $newPicture;
