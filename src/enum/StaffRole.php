@@ -4,9 +4,9 @@ namespace src\enum;
 
 enum StaffRole: string
 {
-    case Manager = 'Manager';
-    case Coach = 'Coach';
-    case Analyste = 'Analyste';
-    case Commentateur = 'Commentateur';
-    case ENTRAINEUR = 'entraineur';
+    case MANAGER = 'Manager';
+    case COACH = 'Coach';
+    case ANALYST = 'Analyst';
+    case COMMENTATOR = 'Commentator';
+    case TRAINER = 'Trainer';
 }

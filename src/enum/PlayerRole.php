@@ -4,13 +4,13 @@ namespace src\enum;
 
 enum PlayerRole: string
 {
-    case DPS = 'dps';
-    case TANK = 'tank';
-    case SUPPORT = 'support';
-    case FLEX = 'flex';
-    case SNIPER = 'sniper';
-    case ENTRY = 'entry';
-    case SUBSTITUE = 'substitue';
+    case DPS = 'DPS';
+    case TANK = 'Tank';
+    case SUPPORT = 'Support';
+    case FLEX = 'Flex';
+    case SNIPER = 'Sniper';
+    case ENTRY = 'Entry';
+    case SUBSTITUE = 'Substitue';
     case LEADER = 'In-Game Leader';
-    case RIFLER = 'rifler';
+    case RIFLER = 'Rifler';
 }
