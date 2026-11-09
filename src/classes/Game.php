@@ -22,7 +22,7 @@ class Game
         #[FieldConstraint]
         private DateTime $date,
         #[FieldConstraint(minLength: 1, maxLength: 100)]
-        private string $city,
+        private string $city
     ) {
         FieldConstraint::validate($this);
     }
@@ -38,6 +38,7 @@ class Game
     {
         FieldConstraint::validateProperty($this, 'teamScore', $newTeamScore);
         $this->teamScore = $newTeamScore;
+        
         return $this;
     }
 
