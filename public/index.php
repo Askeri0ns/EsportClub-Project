@@ -1,11 +1,8 @@
 <?php
 
-// Autoloader officiel de Composer
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// Chargement des variables du fichier .env
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->load();
+Dotenv\Dotenv::createImmutable(__DIR__ . '/..')->load();
 
 use src\enum\PlayerRole;
 use src\enum\StaffRole;
@@ -630,11 +627,11 @@ try {
         <?php endif; ?>
 
         <section class="stats" aria-label="Résumé du club">
-            <a class="stat-card stat-purple" href="#matchs"><span>Matchs</span><strong><?= count($games ?? []) ?></strong><span class="stat-mark" aria-hidden="true">↗</span></a>
-            <a class="stat-card stat-blue" href="#joueurs"><span>Joueurs</span><strong><?= count($players ?? []) ?></strong><span class="stat-mark" aria-hidden="true">↗</span></a>
-            <a class="stat-card stat-orange" href="#equipes"><span>Équipes</span><strong><?= count($teams ?? []) ?></strong><span class="stat-mark" aria-hidden="true">↗</span></a>
-            <a class="stat-card stat-green" href="#staff"><span>Membres du staff</span><strong><?= count($staffMembers ?? []) ?></strong><span class="stat-mark" aria-hidden="true">↗</span></a>
-            <a class="stat-card stat-pink" href="#clubs"><span>Clubs opposants</span><strong><?= count($opposingClubs ?? []) ?></strong><span class="stat-mark" aria-hidden="true">↗</span></a>
+            <a class="stat-card stat-purple" href="#matchs"><span>Matchs</span><strong><?= count($games) ?></strong><span class="stat-mark" aria-hidden="true">↗</span></a>
+            <a class="stat-card stat-blue" href="#joueurs"><span>Joueurs</span><strong><?= count($players) ?></strong><span class="stat-mark" aria-hidden="true">↗</span></a>
+            <a class="stat-card stat-orange" href="#equipes"><span>Équipes</span><strong><?= count($teams) ?></strong><span class="stat-mark" aria-hidden="true">↗</span></a>
+            <a class="stat-card stat-green" href="#staff"><span>Membres du staff</span><strong><?= count($staffMembers) ?></strong><span class="stat-mark" aria-hidden="true">↗</span></a>
+            <a class="stat-card stat-pink" href="#clubs"><span>Clubs opposants</span><strong><?= count($opposingClubs) ?></strong><span class="stat-mark" aria-hidden="true">↗</span></a>
         </section>
 
         <section class="content-section" id="matchs">
