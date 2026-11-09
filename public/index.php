@@ -168,7 +168,7 @@ try {
                     }
 
                     $statement = $pdo->prepare(
-                        'INSERT INTO Player (firstname, lastname, birtdate, picture) VALUES (:firstname, :lastname, :birtdate, :picture)'
+                        'INSERT INTO Player (firstname, lastname, birtdate, picture) VALUES (:firstname, :lastname, :birtdate, :picture)',
                     );
                     $statement->execute([
                         'firstname' => $firstname,
@@ -206,7 +206,7 @@ try {
                         throw new InvalidArgumentException('L’équipe sélectionnée n’existe plus.');
                     }
                     $check = $pdo->prepare(
-                        'SELECT COUNT(*) FROM PlayerHasTeam WHERE idPlayer = :player AND idTeam = :team'
+                        'SELECT COUNT(*) FROM PlayerHasTeam WHERE idPlayer = :player AND idTeam = :team',
                     );
                     $check->execute(['player' => $playerId, 'team' => $teamId]);
                     if ((int) $check->fetchColumn() > 0) {
@@ -214,7 +214,7 @@ try {
                     }
 
                     $statement = $pdo->prepare(
-                        'INSERT INTO PlayerHasTeam (idPlayer, idTeam, role) VALUES (:player, :team, :role)'
+                        'INSERT INTO PlayerHasTeam (idPlayer, idTeam, role) VALUES (:player, :team, :role)',
                     );
                     $statement->execute([
                         'player' => $playerId,
@@ -238,7 +238,7 @@ try {
 
                     $statement = $pdo->prepare(
                         'INSERT INTO Staff (firstname, lastname, birthdate, picture, role)
-                         VALUES (:firstname, :lastname, :birthdate, :picture, :role)'
+                         VALUES (:firstname, :lastname, :birthdate, :picture, :role)',
                     );
                     $statement->execute([
                         'firstname' => requiredText('firstname', 'prénom'),
@@ -253,7 +253,7 @@ try {
 
                 case 'club':
                     $statement = $pdo->prepare(
-                        'INSERT INTO OpposingClub (name, adress, city) VALUES (:name, :address, :city)'
+                        'INSERT INTO OpposingClub (name, adress, city) VALUES (:name, :address, :city)',
                     );
                     $statement->execute([
                         'name' => requiredText('name', 'nom du club'),
@@ -285,7 +285,7 @@ try {
 
                     $statement = $pdo->prepare(
                         'INSERT INTO Game (date, scoreTeam, scoreOpposing, idTeam, idOpposingClub, city)
-                         VALUES (:date, :team_score, :opponent_score, :team, :club, :city)'
+                         VALUES (:date, :team_score, :opponent_score, :team, :club, :city)',
                     );
                     $statement->execute([
                         'date' => $gameDate,
@@ -310,7 +310,7 @@ try {
                             }
                             $statement = $pdo->prepare(
                                 'UPDATE Player SET firstname = :firstname, lastname = :lastname,
-                                 birtdate = :birtdate, picture = :picture WHERE id = :id'
+                                 birtdate = :birtdate, picture = :picture WHERE id = :id',
                             );
                             $statement->execute([
                                 'id' => $id,
@@ -351,7 +351,7 @@ try {
                                 throw new InvalidArgumentException('L’équipe sélectionnée n’existe plus.');
                             }
                             $check = $pdo->prepare(
-                                'SELECT COUNT(*) FROM PlayerHasTeam WHERE idPlayer = :player AND idTeam = :team'
+                                'SELECT COUNT(*) FROM PlayerHasTeam WHERE idPlayer = :player AND idTeam = :team',
                             );
                             $check->execute(['player' => $originalPlayerId, 'team' => $originalTeamId]);
                             if ((int) $check->fetchColumn() === 0) {
@@ -359,7 +359,7 @@ try {
                             }
                             if ($playerId !== $originalPlayerId || $teamId !== $originalTeamId) {
                                 $check = $pdo->prepare(
-                                    'SELECT COUNT(*) FROM PlayerHasTeam WHERE idPlayer = :player AND idTeam = :team'
+                                    'SELECT COUNT(*) FROM PlayerHasTeam WHERE idPlayer = :player AND idTeam = :team',
                                 );
                                 $check->execute(['player' => $playerId, 'team' => $teamId]);
                                 if ((int) $check->fetchColumn() > 0) {
@@ -368,7 +368,7 @@ try {
                             }
                             $statement = $pdo->prepare(
                                 'UPDATE PlayerHasTeam SET idPlayer = :player, idTeam = :team, role = :role
-                                 WHERE idPlayer = :original_player AND idTeam = :original_team'
+                                 WHERE idPlayer = :original_player AND idTeam = :original_team',
                             );
                             $statement->execute([
                                 'player' => $playerId,
@@ -392,7 +392,7 @@ try {
                             }
                             $statement = $pdo->prepare(
                                 'UPDATE Staff SET firstname = :firstname, lastname = :lastname,
-                                 birthdate = :birthdate, picture = :picture, role = :role WHERE id = :id'
+                                 birthdate = :birthdate, picture = :picture, role = :role WHERE id = :id',
                             );
                             $statement->execute([
                                 'id' => $id,
@@ -407,7 +407,7 @@ try {
 
                         case 'club':
                             $statement = $pdo->prepare(
-                                'UPDATE OpposingClub SET name = :name, adress = :address, city = :city WHERE id = :id'
+                                'UPDATE OpposingClub SET name = :name, adress = :address, city = :city WHERE id = :id',
                             );
                             $statement->execute([
                                 'id' => $id,
@@ -434,7 +434,7 @@ try {
                             $statement = $pdo->prepare(
                                 'UPDATE Game SET date = :date, city = :city, idTeam = :team,
                                  idOpposingClub = :club, scoreTeam = :team_score, scoreOpposing = :opponent_score
-                                 WHERE id = :id'
+                                 WHERE id = :id',
                             );
                             $statement->execute([
                                 'id' => $id,
@@ -485,7 +485,7 @@ try {
 
                         case 'association':
                             $statement = $pdo->prepare(
-                                'DELETE FROM PlayerHasTeam WHERE idPlayer = :player AND idTeam = :team'
+                                'DELETE FROM PlayerHasTeam WHERE idPlayer = :player AND idTeam = :team',
                             );
                             $statement->execute([
                                 'player' => validId('player_id', 'le joueur associé'),
@@ -535,7 +535,7 @@ try {
             $failedEntity = is_string($_POST['entity'] ?? null) ? $_POST['entity'] : null;
             $failedValues = array_map(
                 static fn(mixed $value): string => is_scalar($value) ? (string) $value : '',
-                $_POST
+                $_POST,
             );
         } catch (PDOException $error) {
             error_log('EsportClub write failed: ' . $error->getMessage());
@@ -544,20 +544,20 @@ try {
             $failedEntity = is_string($_POST['entity'] ?? null) ? $_POST['entity'] : null;
             $failedValues = array_map(
                 static fn(mixed $value): string => is_scalar($value) ? (string) $value : '',
-                $_POST
+                $_POST,
             );
         }
     }
 
     $players = $pdo->query(
-        'SELECT id, firstname, lastname, birtdate, picture FROM Player ORDER BY lastname, firstname'
+        'SELECT id, firstname, lastname, birtdate, picture FROM Player ORDER BY lastname, firstname',
     )->fetchAll();
     $teams = $pdo->query('SELECT id, name FROM Team ORDER BY name')->fetchAll();
     $opposingClubs = $pdo->query(
-        'SELECT id, name, adress, city FROM OpposingClub ORDER BY name'
+        'SELECT id, name, adress, city FROM OpposingClub ORDER BY name',
     )->fetchAll();
     $staffMembers = $pdo->query(
-        'SELECT id, firstname, lastname, birthdate, picture, role FROM Staff ORDER BY lastname, firstname'
+        'SELECT id, firstname, lastname, birthdate, picture, role FROM Staff ORDER BY lastname, firstname',
     )->fetchAll();
     $games = $pdo->query(
         'SELECT g.id, g.date, g.scoreTeam, g.scoreOpposing, g.city,
@@ -566,7 +566,7 @@ try {
          FROM Game g
          LEFT JOIN Team t ON t.id = g.idTeam
          LEFT JOIN OpposingClub o ON o.id = g.idOpposingClub
-         ORDER BY g.date DESC, g.id DESC'
+         ORDER BY g.date DESC, g.id DESC',
     )->fetchAll();
     $roster = $pdo->query(
         'SELECT pht.idPlayer AS player_id, p.firstname, p.lastname,
@@ -574,7 +574,7 @@ try {
          FROM PlayerHasTeam pht
          JOIN Player p ON p.id = pht.idPlayer
          JOIN Team t ON t.id = pht.idTeam
-         ORDER BY t.name, p.lastname, p.firstname'
+         ORDER BY t.name, p.lastname, p.firstname',
     )->fetchAll();
 } catch (PDOException $error) {
     error_log('EsportClub database unavailable: ' . $error->getMessage());
@@ -719,9 +719,9 @@ try {
                                     <?php
                                     $playerAssignments = array_filter(
                                         $roster,
-                                        static fn(array $member): bool => (int) $member['player_id'] === (int) $player['id']
+                                        static fn(array $member): bool => (int) $member['player_id'] === (int) $player['id'],
                                     );
-                                    ?>
+                        ?>
                                     <?php if ($playerAssignments === []): ?>
                                         <span class="role-chip role-chip-empty">Sans équipe</span>
                                     <?php else: ?>

@@ -16,7 +16,7 @@ class PlayerHasTeam
         #[FieldConstraint]
         private Team $team,
         #[FieldConstraint]
-        private PlayerRole $role
+        private PlayerRole $role,
     ) {
         FieldConstraint::validate($this);
     }

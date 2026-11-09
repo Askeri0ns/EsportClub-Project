@@ -10,9 +10,7 @@ use src\classes\OpposingClub;
 class OpposingClubDatabase
 {
     // Constructeur
-    public function __construct(private PDO $pdo)
-    {
-    }
+    public function __construct(private PDO $pdo) {}
 
     // Transformer une ligne de la base en objet OpposingClub
     private function hydrate(array $data): OpposingClub
@@ -20,7 +18,7 @@ class OpposingClubDatabase
         return new OpposingClub(
             $data['name'],
             $data['address'],
-            $data['city']
+            $data['city'],
         );
     }
 
@@ -31,8 +29,7 @@ class OpposingClubDatabase
         $query->execute(['id' => $id]);
 
         $data = $query->fetch(PDO::FETCH_ASSOC);
-        if (!$data)
-        {
+        if (!$data) {
             return null;
         }
         return $this->hydrate($data);
@@ -44,8 +41,7 @@ class OpposingClubDatabase
         $query = $this->pdo->query('SELECT * FROM Opposing_Club');
         $clubs = [];
 
-        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data)
-        {
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data) {
             $clubs[] = $this->hydrate($data);
         }
         return $clubs;
@@ -58,7 +54,7 @@ class OpposingClubDatabase
         $query->execute([
             'name' => $club->getName(),
             'address' => $club->getAddress(),
-            'city' => $club->getCity()
+            'city' => $club->getCity(),
         ]);
     }
 
@@ -70,7 +66,7 @@ class OpposingClubDatabase
             'id' => $id,
             'name' => $club->getName(),
             'address' => $club->getAddress(),
-            'city' => $club->getCity()
+            'city' => $club->getCity(),
         ]);
     }
 

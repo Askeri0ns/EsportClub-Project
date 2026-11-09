@@ -15,7 +15,7 @@ class OpposingClub
         #[FieldConstraint(minLength: 1, maxLength: 150)]
         private string $address,
         #[FieldConstraint(minLength: 1, maxLength: 100)]
-        private string $city
+        private string $city,
     ) {
         FieldConstraint::validate($this);
     }

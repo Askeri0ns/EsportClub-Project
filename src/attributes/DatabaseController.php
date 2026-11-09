@@ -7,7 +7,5 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS)]
 class DatabaseController
 {
-    public function __construct(public string $entityClass)
-    {
-    }
+    public function __construct(public string $entityClass) {}
 }

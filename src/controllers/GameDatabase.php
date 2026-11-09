@@ -2,7 +2,8 @@
 
 namespace src\controllers;
 
-use DateTime, PDO;
+use DateTime;
+use PDO;
 use src\attributes\DatabaseController;
 use src\classes\Game;
 use src\classes\Team;
@@ -18,9 +19,7 @@ class GameDatabase
                             JOIN Opposing_Club oc ON oc.name = g.opposing_club_name';
 
     // Constructeur
-    public function __construct(private PDO $pdo)
-    {
-    }
+    public function __construct(private PDO $pdo) {}
 
     // Transformer une ligne de la base en objet Game
     private function hydrate(array $data): Game
@@ -31,7 +30,7 @@ class GameDatabase
             new Team($data['team_name']),
             new OpposingClub($data['club_name'], $data['club_address'], $data['club_city']),
             new DateTime($data['date']),
-            $data['city']
+            $data['city'],
         );
     }
 
@@ -42,8 +41,7 @@ class GameDatabase
         $query->execute(['id' => $id]);
 
         $data = $query->fetch(PDO::FETCH_ASSOC);
-        if (!$data)
-        {
+        if (!$data) {
             return null;
         }
         return $this->hydrate($data);
@@ -55,8 +53,7 @@ class GameDatabase
         $query = $this->pdo->query(self::SELECT);
         $games = [];
 
-        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data)
-        {
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data) {
             $games[] = $this->hydrate($data);
         }
         return $games;
@@ -72,7 +69,7 @@ class GameDatabase
             'team_name' => $game->getTeam()->getName(),
             'opposing_club_name' => $game->getOpposingClub()->getName(),
             'date' => $game->getDate()->format('Y-m-d H:i:s'),
-            'city' => $game->getCity()
+            'city' => $game->getCity(),
         ]);
     }
 
@@ -87,7 +84,7 @@ class GameDatabase
             'team_name' => $game->getTeam()->getName(),
             'opposing_club_name' => $game->getOpposingClub()->getName(),
             'date' => $game->getDate()->format('Y-m-d H:i:s'),
-            'city' => $game->getCity()
+            'city' => $game->getCity(),
         ]);
     }
 

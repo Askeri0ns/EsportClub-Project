@@ -2,7 +2,8 @@
 
 namespace src\controllers;
 
-use DateTime, PDO;
+use DateTime;
+use PDO;
 use src\attributes\DatabaseController;
 use src\classes\Player;
 use src\classes\Team;
@@ -18,9 +19,7 @@ class PlayerHasTeamDatabase
                             JOIN Player p ON p.id = pht.player_id';
 
     // Constructeur
-    public function __construct(private PDO $pdo)
-    {
-    }
+    public function __construct(private PDO $pdo) {}
 
     // Transformer une ligne de la base en objet PlayerHasTeam
     private function hydrate(array $data): PlayerHasTeam
@@ -28,7 +27,7 @@ class PlayerHasTeamDatabase
         return new PlayerHasTeam(
             new Player($data['firstname'], $data['lastname'], new DateTime($data['birthdate']), $data['picture']),
             new Team($data['team_name']),
-            PlayerRole::from($data['role'])
+            PlayerRole::from($data['role']),
         );
     }
 
@@ -39,8 +38,7 @@ class PlayerHasTeamDatabase
         $query->execute(['player_id' => $playerId]);
         $associations = [];
 
-        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data)
-        {
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data) {
             $associations[] = $this->hydrate($data);
         }
         return $associations;
@@ -53,8 +51,7 @@ class PlayerHasTeamDatabase
         $query->execute(['team_name' => $teamName]);
         $associations = [];
 
-        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data)
-        {
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data) {
             $associations[] = $this->hydrate($data);
         }
         return $associations;
@@ -66,8 +63,7 @@ class PlayerHasTeamDatabase
         $query = $this->pdo->query(self::SELECT);
         $associations = [];
 
-        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data)
-        {
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data) {
             $associations[] = $this->hydrate($data);
         }
         return $associations;
@@ -80,7 +76,7 @@ class PlayerHasTeamDatabase
         $query->execute([
             'player_id' => $playerId,
             'team_name' => $association->getTeam()->getName(),
-            'role' => $association->getRole()
+            'role' => $association->getRole(),
         ]);
     }
 
@@ -92,7 +88,7 @@ class PlayerHasTeamDatabase
             'player_id' => $playerId,
             'team_name' => $teamName,
             'new_team_name' => $association->getTeam()->getName(),
-            'role' => $association->getRole()
+            'role' => $association->getRole(),
         ]);
     }
 
@@ -102,7 +98,7 @@ class PlayerHasTeamDatabase
         $query = $this->pdo->prepare('DELETE FROM Player_has_Team WHERE player_id = :player_id AND team_name = :team_name');
         $query->execute([
             'player_id' => $playerId,
-            'team_name' => $teamName
+            'team_name' => $teamName,
         ]);
     }
 }

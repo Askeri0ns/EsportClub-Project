@@ -18,7 +18,7 @@ class Player
         #[FieldConstraint]
         private DateTime $birthdate,
         #[FieldConstraint(nullable: true, maxLength: 2048)]
-        private ?string $picture = null
+        private ?string $picture = null,
     ) {
         FieldConstraint::validate($this);
     }

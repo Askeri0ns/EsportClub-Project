@@ -13,7 +13,7 @@ class Team
         #[FieldConstraint(minLength: 1, maxLength: 100)]
         private string $name,
         #[FieldConstraint(nullable: true, min: 1)]
-        private ?int $id = null
+        private ?int $id = null,
     ) {
         FieldConstraint::validate($this);
     }

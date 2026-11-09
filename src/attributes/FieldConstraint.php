@@ -14,7 +14,7 @@ class FieldConstraint
         public int|float|null $min = null,
         public int|float|null $max = null,
         public ?int $minLength = null,
-        public ?int $maxLength = null
+        public ?int $maxLength = null,
     ) {
         if ($min !== null && $max !== null && $min > $max) {
             throw new InvalidArgumentException('La valeur minimale doit être inférieure ou égale à la valeur maximale.');
@@ -34,7 +34,7 @@ class FieldConstraint
             self::validateValue(
                 $property->getName(),
                 $property->getValue($object),
-                $property->getAttributes(self::class)
+                $property->getAttributes(self::class),
             );
         }
     }
@@ -45,7 +45,7 @@ class FieldConstraint
         self::validateValue(
             $propertyName,
             $value,
-            $property->getAttributes(self::class)
+            $property->getAttributes(self::class),
         );
     }
 

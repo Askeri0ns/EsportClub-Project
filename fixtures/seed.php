@@ -46,11 +46,11 @@ $playerHasTeam5 = new PlayerHasTeam($player5, $team3, PlayerRole::FLEX);
 
 
 // 5 instances de StaffMember
-$staff1 = new StaffMember("Arthur", "Lefevre", new DateTime("1988-03-14"), StaffRole::Manager, "arthur_lefevre.jpg");
-$staff2 = new StaffMember("Thomas", "Renaud", new DateTime("1990-06-22"), StaffRole::Coach);
-$staff3 = new StaffMember("Julien", "Marchand", new DateTime("1992-09-10"), StaffRole::Analyste, "julien_marchang.jpg");
-$staff4 = new StaffMember("Camille", "Robert", new DateTime("1995-01-27"), StaffRole::Commentateur, "camille_robert.jpg");
-$staff5 = new StaffMember("Maxime", "Petit", new DateTime("1987-12-05"), StaffRole::Coach);
+$staff1 = new StaffMember("Arthur", "Lefevre", new DateTime("1988-03-14"), StaffRole::MANAGER, "arthur_lefevre.jpg");
+$staff2 = new StaffMember("Thomas", "Renaud", new DateTime("1990-06-22"), StaffRole::COACH);
+$staff3 = new StaffMember("Julien", "Marchand", new DateTime("1992-09-10"), StaffRole::ANALYST, "julien_marchang.jpg");
+$staff4 = new StaffMember("Camille", "Robert", new DateTime("1995-01-27"), StaffRole::COMMENTATOR, "camille_robert.jpg");
+$staff5 = new StaffMember("Maxime", "Petit", new DateTime("1987-12-05"), StaffRole::COACH);
 
 
 // 5 instances de Game

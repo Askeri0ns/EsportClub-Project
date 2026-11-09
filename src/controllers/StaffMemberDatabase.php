@@ -2,7 +2,8 @@
 
 namespace src\controllers;
 
-use DateTime, PDO;
+use DateTime;
+use PDO;
 use src\attributes\DatabaseController;
 use src\classes\StaffMember;
 use src\enum\StaffRole;
@@ -11,9 +12,7 @@ use src\enum\StaffRole;
 class StaffMemberDatabase
 {
     // Constructeur
-    public function __construct(private PDO $pdo)
-    {
-    }
+    public function __construct(private PDO $pdo) {}
 
     // Transformer une ligne de la base en objet StaffMember
     private function hydrate(array $data): StaffMember
@@ -23,7 +22,7 @@ class StaffMemberDatabase
             $data['lastname'],
             new DateTime($data['birthdate']),
             StaffRole::from($data['role']),
-            $data['picture']
+            $data['picture'],
         );
     }
 
@@ -34,8 +33,7 @@ class StaffMemberDatabase
         $query->execute(['id' => $id]);
 
         $data = $query->fetch(PDO::FETCH_ASSOC);
-        if (!$data)
-        {
+        if (!$data) {
             return null;
         }
         return $this->hydrate($data);
@@ -47,8 +45,7 @@ class StaffMemberDatabase
         $query = $this->pdo->query('SELECT * FROM Staff_Member');
         $staffMembers = [];
 
-        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data)
-        {
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data) {
             $staffMembers[] = $this->hydrate($data);
         }
         return $staffMembers;
@@ -63,7 +60,7 @@ class StaffMemberDatabase
             'lastname' => $staffMember->getLastname(),
             'birthdate' => $staffMember->getBirthdate()->format('Y-m-d'),
             'role' => $staffMember->getRole(),
-            'picture' => $staffMember->getPicture()
+            'picture' => $staffMember->getPicture(),
         ]);
     }
 
@@ -77,7 +74,7 @@ class StaffMemberDatabase
             'lastname' => $staffMember->getLastname(),
             'birthdate' => $staffMember->getBirthdate()->format('Y-m-d'),
             'role' => $staffMember->getRole(),
-            'picture' => $staffMember->getPicture()
+            'picture' => $staffMember->getPicture(),
         ]);
     }
 

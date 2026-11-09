@@ -10,16 +10,14 @@ use src\classes\Team;
 class TeamDatabase
 {
     // Constructeur
-    public function __construct(private PDO $pdo)
-    {
-    }
+    public function __construct(private PDO $pdo) {}
 
     // Transformer une ligne de la base en objet Team
-private function hydrate(array $data): Team
+    private function hydrate(array $data): Team
     {
-        return new Team (
+        return new Team(
             $data['name'],
-            isset($data['id']) ? (int) $data['id'] : null
+            isset($data['id']) ? (int) $data['id'] : null,
         );
     }
 
@@ -31,8 +29,7 @@ private function hydrate(array $data): Team
         $query->execute(['id' => $id]);
 
         $data = $query->fetch(PDO::FETCH_ASSOC);
-        if (!$data)
-        {
+        if (!$data) {
             return null;
         }
         return $this->hydrate($data);
@@ -44,8 +41,7 @@ private function hydrate(array $data): Team
         $query = $this->pdo->query('SELECT * FROM Team');
         $teams = [];
 
-        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data)
-        {
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data) {
             $teams[] = $this->hydrate($data);
         }
         return $teams;
@@ -56,7 +52,7 @@ private function hydrate(array $data): Team
     {
         $query = $this->pdo->prepare('INSERT INTO Team (name) VALUES (:name)');
         $query->execute([
-            'name' => $team->getName()
+            'name' => $team->getName(),
         ]);
     }
 
@@ -66,7 +62,7 @@ private function hydrate(array $data): Team
         $query = $this->pdo->prepare('UPDATE Team SET name = :name WHERE id = :id');
         $query->execute([
             'id' => $id,
-            'name' => $team->getName()
+            'name' => $team->getName(),
         ]);
     }
 

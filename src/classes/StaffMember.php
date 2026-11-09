@@ -22,13 +22,13 @@ class StaffMember
         #[FieldConstraint]
         private StaffRole $role,
         #[FieldConstraint(nullable: true, maxLength: 2048)]
-        private ?string $picture = null
+        private ?string $picture = null,
     ) {
         FieldConstraint::validate($this);
     }
 
     // Accesseurs
-    
+
     // Firstname (Getter & Setter)
     public function getFirstname(): string
     {
@@ -40,7 +40,7 @@ class StaffMember
         $this->firstname = $newFirstname;
         return $this;
     }
-    
+
     // Lastname (Getter & Setter)
     public function getLastname(): string
     {
@@ -52,7 +52,7 @@ class StaffMember
         $this->lastname = $newLastname;
         return $this;
     }
-    
+
     // Birthdate (Getter & Setter)
     public function getBirthdate(): DateTime
     {
@@ -63,7 +63,7 @@ class StaffMember
         $this->birthdate = $newBirthdate;
         return $this;
     }
-    
+
     // Role (Getter & Setter)
     public function getRole(): string
     {
@@ -79,7 +79,7 @@ class StaffMember
         $this->role = $role;
         return $this;
     }
-    
+
     // Picture (Getter & Setter)
     public function getPicture(): ?string
     {

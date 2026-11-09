@@ -1,8 +1,8 @@
 <?php
 
 // Récupération du chemin de la base de données :
-$databasePath = isset($_ENV['DB_PATH']) 
-    ? __DIR__ . '/../' . $_ENV['DB_PATH'] 
+$databasePath = isset($_ENV['DB_PATH'])
+    ? __DIR__ . '/../' . $_ENV['DB_PATH']
     : __DIR__ . '/EsportsClub.db';
 
 // Création de l'objet PDO (la connexion à SQLite) :

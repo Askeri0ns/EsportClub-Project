@@ -2,7 +2,8 @@
 
 namespace src\controllers;
 
-use DateTime, PDO;
+use DateTime;
+use PDO;
 use src\attributes\DatabaseController;
 use src\classes\Player;
 
@@ -10,9 +11,7 @@ use src\classes\Player;
 class PlayerDatabase
 {
     // Constructeur
-    public function __construct(private PDO $pdo)
-    {
-    }
+    public function __construct(private PDO $pdo) {}
 
     // Transformer une ligne de la base en objet Player
     private function hydrate(array $data): Player
@@ -21,7 +20,7 @@ class PlayerDatabase
             $data['firstname'],
             $data['lastname'],
             new DateTime($data['birthdate']),
-            $data['picture']
+            $data['picture'],
         );
     }
 
@@ -32,8 +31,7 @@ class PlayerDatabase
         $query->execute(['id' => $id]);
 
         $data = $query->fetch(PDO::FETCH_ASSOC);
-        if (!$data)
-        {
+        if (!$data) {
             return null;
         }
         return $this->hydrate($data);
@@ -45,8 +43,7 @@ class PlayerDatabase
         $query = $this->pdo->query('SELECT * FROM Player');
         $players = [];
 
-        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data)
-        {
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data) {
             $players[] = $this->hydrate($data);
         }
         return $players;
@@ -59,7 +56,7 @@ class PlayerDatabase
         $query->execute([
             'firstname' => $firstname,
             'lastname'  => $lastname,
-            'birthdate' => $birthdate
+            'birthdate' => $birthdate,
         ]);
 
         return (int) $query->fetchColumn() > 0;
@@ -73,7 +70,7 @@ class PlayerDatabase
             'firstname' => $player->getFirstname(),
             'lastname' => $player->getLastname(),
             'birthdate' => $player->getBirthdate()->format('Y-m-d'),
-            'picture' => $player->getPicture()
+            'picture' => $player->getPicture(),
         ]);
     }
 
@@ -86,7 +83,7 @@ class PlayerDatabase
             'firstname' => $player->getFirstname(),
             'lastname' => $player->getLastname(),
             'birthdate' => $player->getBirthdate()->format('Y-m-d'),
-            'picture' => $player->getPicture()
+            'picture' => $player->getPicture(),
         ]);
     }
 
